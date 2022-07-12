@@ -23,6 +23,17 @@ public class Player : MonoBehaviour
 
     private bool _isTripleShotActive = false;
     private bool _isSpeedBoostActive = false;
+    private bool _isShieldsActive = false;
+
+    [SerializeField]
+    private GameObject _shieldVisualizer;
+
+    [SerializeField]
+    private int _score;
+
+   private UI_Manager _uiManager;
+
+  
     
     
 
@@ -31,10 +42,16 @@ public class Player : MonoBehaviour
     {
         transform.position = new Vector3(0, 0, 0);
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
+        _uiManager = GameObject.Find("Canvas").GetComponent<UI_Manager>();
 
         if (_spawnManager == null)
         {
             Debug.LogError("The Spawn Manager is NULL.");
+        }
+
+        if (_uiManager == null)
+        {
+            Debug.LogError("The UI Manager is NULL.");
         }
 
     }
@@ -105,7 +122,19 @@ public class Player : MonoBehaviour
     }
     public void Damage()
     {
-        _lives --;
+
+        if (_isShieldsActive == true)
+        {
+            _isShieldsActive = false;
+            _shieldVisualizer.SetActive(false);
+           
+            
+            return;
+        }
+
+
+
+        _lives--;
 
         if (_lives < 1)
         {
@@ -126,6 +155,15 @@ public class Player : MonoBehaviour
 
     }
 
+    IEnumerator TripleShotPowerDownRoutine()
+    {
+
+        yield return new WaitForSeconds(5.0f);
+        _isTripleShotActive = false;
+
+
+    }
+
     public void SpeedBoostActive()
     {
         _isSpeedBoostActive = true;
@@ -134,18 +172,31 @@ public class Player : MonoBehaviour
     }
 
 
-    IEnumerator TripleShotPowerDownRoutine()
-    {
-        
-        yield return new WaitForSeconds(5.0f);
-        _isTripleShotActive = false;
-
-        
-    }
+    
     IEnumerator SpeedBoostPowerDownRoutine()
     {
         yield return new WaitForSeconds(5.0f);
         _isSpeedBoostActive = false;
         _speed /= _speedMultiplier;
     }
+
+    public void ShieldsActive()
+    {
+        _isShieldsActive = true;
+        
+        _shieldVisualizer.SetActive(true);
+     
+       
+    }
+
+    public void AddScore(int points)
+    {
+        _score += points;
+        _uiManager.UpdateScore(_score);
+
+
+    }
+    
+
+    
 }
