@@ -1047,6 +1047,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 5
+  _speedBoost: 10
   _speedMultiplier: 2
   _laserPrefab: {fileID: 6470472218735852540, guid: 93e0fb8feb15aea429d0a0b368efd017,
     type: 3}

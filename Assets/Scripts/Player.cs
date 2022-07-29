@@ -6,7 +6,9 @@ public class Player : MonoBehaviour
 {
  
     [SerializeField]
-    private float _speed = 3.5f;
+    private float _speed = 5f;
+    [SerializeField]
+    private float _speedBoost = 8.0f;
     [SerializeField]
     private float _speedMultiplier = 2;
     [SerializeField]
@@ -96,8 +98,17 @@ public class Player : MonoBehaviour
         
         Vector3 direction = new Vector3(horizontalInput, verticalInput, 0);
 
-       
-            transform.Translate(direction * _speed * Time.deltaTime);
+
+        transform.Translate(direction * _speed * Time.deltaTime);
+
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            _speed = _speedBoost;
+        }
+        else
+        {
+            _speed = 5f;
+        }
             
           
 
