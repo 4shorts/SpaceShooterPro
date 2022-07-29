@@ -24,16 +24,24 @@ public class Player : MonoBehaviour
     private bool _isTripleShotActive = false;
     private bool _isSpeedBoostActive = false;
     private bool _isShieldsActive = false;
+   
+    
 
     [SerializeField]
     private GameObject _shieldVisualizer;
+    [SerializeField]
+    private GameObject _rightEngine, _leftEngine;
 
     [SerializeField]
     private int _score;
 
    private UI_Manager _uiManager;
 
-  
+    [SerializeField]
+    private AudioClip _laserClip;
+   
+    private AudioSource _audioSource;
+    
     
     
 
@@ -43,6 +51,8 @@ public class Player : MonoBehaviour
         transform.position = new Vector3(0, 0, 0);
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
         _uiManager = GameObject.Find("Canvas").GetComponent<UI_Manager>();
+        _audioSource = GetComponent<AudioSource>();
+       
 
         if (_spawnManager == null)
         {
@@ -53,6 +63,15 @@ public class Player : MonoBehaviour
         {
             Debug.LogError("The UI Manager is NULL.");
         }
+        if (_audioSource == null)
+        {
+            Debug.LogError("The AudioSource on the player is NULL!");
+        }
+        else
+        {
+            _audioSource.clip = _laserClip;
+        }
+       
 
     }
 
@@ -116,7 +135,10 @@ public class Player : MonoBehaviour
         else
         {
             Instantiate(_laserPrefab, transform.position + new Vector3(0, 1.05f, 0), Quaternion.identity);
-        }
+        }       
+      
+        _audioSource.Play();
+       
        
     
     }
@@ -136,11 +158,25 @@ public class Player : MonoBehaviour
 
         _lives--;
 
+        if (_lives == 2)
+        {
+            _rightEngine.SetActive(true);
+        }
+        else if (_lives == 1)
+        {
+            _leftEngine.SetActive(true);
+        }
+
+       
+
+        _uiManager.UpdateLives(_lives);
+
         if (_lives < 1)
         {
 
             _spawnManager.OnPlayerDeath();
             Destroy(this.gameObject);
+
 
         }
 
@@ -150,7 +186,7 @@ public class Player : MonoBehaviour
     {
         
         _isTripleShotActive = true;
-       
+        
         StartCoroutine(TripleShotPowerDownRoutine());
 
     }
@@ -159,6 +195,7 @@ public class Player : MonoBehaviour
     {
 
         yield return new WaitForSeconds(5.0f);
+        
         _isTripleShotActive = false;
 
 
@@ -167,6 +204,7 @@ public class Player : MonoBehaviour
     public void SpeedBoostActive()
     {
         _isSpeedBoostActive = true;
+       
         _speed *= _speedMultiplier;
         StartCoroutine(SpeedBoostPowerDownRoutine());
     }
@@ -183,7 +221,7 @@ public class Player : MonoBehaviour
     public void ShieldsActive()
     {
         _isShieldsActive = true;
-        
+       
         _shieldVisualizer.SetActive(true);
      
        
