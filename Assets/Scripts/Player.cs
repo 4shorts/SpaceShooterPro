@@ -18,6 +18,12 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float _fireRate = 0.5f;
     private float _canFire = -1f;
+
+    [SerializeField]
+    private int _ammoCount = 15;
+    [SerializeField]
+    private AudioClip _noAmmo;
+
     [SerializeField]
     private int _lives = 3;
     private SpawnManager _spawnManager;
@@ -31,9 +37,9 @@ public class Player : MonoBehaviour
     private int _shieldHits = 0;
     [SerializeField]
     private float _playerShieldAlpha = 1.0f;
-
     [SerializeField]
     private GameObject _shieldVisualizer;
+   
     [SerializeField]
     private GameObject _rightEngine, _leftEngine;
 
@@ -89,6 +95,11 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
         {
+            if (_ammoCount == 0)
+            {
+                AudioSource.PlayClipAtPoint(_noAmmo, transform.position);
+                return;
+            }
             FireLaser();
         }
 
@@ -139,7 +150,9 @@ public class Player : MonoBehaviour
     }
 
     void FireLaser()
-    {   
+    {
+        AmmoCount(-1);
+
         _canFire = Time.time + _fireRate;
        
 
@@ -158,6 +171,13 @@ public class Player : MonoBehaviour
        
     
     }
+
+    public void AmmoCount(int bullets)
+    {
+        _ammoCount += bullets;
+        _uiManager.UpdateAmmoCount(_ammoCount);
+    }
+
     public void Damage()
     {
 
