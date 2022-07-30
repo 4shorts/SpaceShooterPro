@@ -26,8 +26,11 @@ public class Player : MonoBehaviour
     private bool _isTripleShotActive = false;
     private bool _isSpeedBoostActive = false;
     private bool _isShieldsActive = false;
-   
-    
+
+    [SerializeField]
+    private int _shieldHits = 0;
+    [SerializeField]
+    private float _playerShieldAlpha = 1.0f;
 
     [SerializeField]
     private GameObject _shieldVisualizer;
@@ -54,6 +57,8 @@ public class Player : MonoBehaviour
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
         _uiManager = GameObject.Find("Canvas").GetComponent<UI_Manager>();
         _audioSource = GetComponent<AudioSource>();
+        
+
        
 
         if (_spawnManager == null)
@@ -158,10 +163,22 @@ public class Player : MonoBehaviour
 
         if (_isShieldsActive == true)
         {
-            _isShieldsActive = false;
-            _shieldVisualizer.SetActive(false);
-           
-            
+            _shieldHits++;
+            switch (_shieldHits)
+            {
+                case 1:
+                    _playerShieldAlpha = 0.75f;
+                    _shieldVisualizer.GetComponent<SpriteRenderer>().material.color = new Color(1f, 1f, 1f, _playerShieldAlpha);
+                    break;
+                case 2:
+                    _playerShieldAlpha = 0.40f;
+                    _shieldVisualizer.GetComponent<SpriteRenderer>().material.color = new Color(1f, 1f, 1f, _playerShieldAlpha);
+                    break;
+                case 3:
+                    _isShieldsActive = false;
+                    _shieldVisualizer.SetActive(false);
+                    break;
+            } 
             return;
         }
 
@@ -232,8 +249,11 @@ public class Player : MonoBehaviour
     public void ShieldsActive()
     {
         _isShieldsActive = true;
-       
         _shieldVisualizer.SetActive(true);
+        _shieldHits = 0;
+        _playerShieldAlpha = 1.0f;
+        _shieldVisualizer.GetComponent<SpriteRenderer>().material.color = new Color(1f, 1f, 1f, _playerShieldAlpha);
+
      
        
     }
