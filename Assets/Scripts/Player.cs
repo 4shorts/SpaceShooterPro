@@ -32,6 +32,7 @@ public class Player : MonoBehaviour
     private bool _isTripleShotActive = false;
     private bool _isSpeedBoostActive = false;
     private bool _isShieldsActive = false;
+    private bool _isAmmoRefillActive = false;
 
     [SerializeField]
     private int _shieldHits = 0;
@@ -39,6 +40,8 @@ public class Player : MonoBehaviour
     private float _playerShieldAlpha = 1.0f;
     [SerializeField]
     private GameObject _shieldVisualizer;
+    [SerializeField]
+    private int _ammoRefill = 15;
    
     [SerializeField]
     private GameObject _rightEngine, _leftEngine;
@@ -176,6 +179,17 @@ public class Player : MonoBehaviour
     {
         _ammoCount += bullets;
         _uiManager.UpdateAmmoCount(_ammoCount);
+        
+    }
+
+    public void AmmoRefill()
+    {
+        
+        
+            _ammoCount += 15;
+            _uiManager.UpdateAmmoCount(_ammoCount);
+           
+        
     }
 
     public void Damage()

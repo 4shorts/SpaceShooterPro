@@ -701,6 +701,7 @@ MonoBehaviour:
   - {fileID: 3701724003939941027, guid: bf79cf0f0bb1c0b438ab77da584ceb74, type: 3}
   - {fileID: 665229519543389015, guid: 2b37ba8b6fbd62d4faec30687a8bb484, type: 3}
   - {fileID: 9178075602324131986, guid: a5dc6f185ee6aff4f9bbae841b116124, type: 3}
+  - {fileID: 7081506330929759310, guid: baa6ae7e59af082439ffa3758650e327, type: 3}
 --- !u!4 &641658917
 Transform:
   m_ObjectHideFlags: 0
@@ -1062,6 +1063,7 @@ MonoBehaviour:
   _shieldHits: 0
   _playerShieldAlpha: 1
   _shieldVisualizer: {fileID: 1898343229}
+  _ammoRefill: 15
   _rightEngine: {fileID: 276526113}
   _leftEngine: {fileID: 1837430326}
   _score: 0
