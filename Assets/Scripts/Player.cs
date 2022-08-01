@@ -7,10 +7,10 @@ public class Player : MonoBehaviour
  
     [SerializeField]
     private float _speed = 5f;
+    //[SerializeField]
+    //private float _speedBoost = 8.0f;
     [SerializeField]
-    private float _speedBoost = 8.0f;
-    [SerializeField]
-    private float _speedMultiplier = 2;
+    private float _speedMultiplier = 20;
     [SerializeField]
     private GameObject _laserPrefab;
     [SerializeField]
@@ -32,7 +32,7 @@ public class Player : MonoBehaviour
     private bool _isTripleShotActive = false;
     private bool _isSpeedBoostActive = false;
     private bool _isShieldsActive = false;
-    private bool _isAmmoRefillActive = false;
+  
 
     [SerializeField]
     private int _shieldHits = 0;
@@ -40,8 +40,7 @@ public class Player : MonoBehaviour
     private float _playerShieldAlpha = 1.0f;
     [SerializeField]
     private GameObject _shieldVisualizer;
-    [SerializeField]
-    private int _ammoRefill = 15;
+    
    
     [SerializeField]
     private GameObject _rightEngine, _leftEngine;
@@ -122,7 +121,7 @@ public class Player : MonoBehaviour
 
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            _speed = _speedBoost;
+            _speed = 8f;
         }
         else
         {
@@ -192,6 +191,14 @@ public class Player : MonoBehaviour
         
     }
 
+    public void Health()
+    {
+        _lives = 3;
+        _rightEngine.SetActive(false);
+        _leftEngine.SetActive(false);
+        _uiManager.UpdateLives(_lives);
+    }
+
     public void Damage()
     {
 
@@ -228,6 +235,7 @@ public class Player : MonoBehaviour
         {
             _leftEngine.SetActive(true);
         }
+        
 
        
 
