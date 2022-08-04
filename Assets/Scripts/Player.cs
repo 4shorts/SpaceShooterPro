@@ -16,8 +16,11 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject _tripleShotPrefab;
     [SerializeField]
+    private GameObject _heatSeekMissilePrefab;
+    [SerializeField]
     private float _fireRate = 0.5f;
     private float _canFire = -1f;
+    
 
     [SerializeField]
     private int _ammoCount = 15;
@@ -27,12 +30,15 @@ public class Player : MonoBehaviour
     [SerializeField]
     private int _lives = 3;
     private SpawnManager _spawnManager;
+    
 
 
     private bool _isTripleShotActive = false;
     private bool _isSpeedBoostActive = false;
     private bool _isShieldsActive = false;
-  
+    private bool _isHeatSeekMissileActive = false;
+   
+
 
     [SerializeField]
     private int _shieldHits = 0;
@@ -54,7 +60,8 @@ public class Player : MonoBehaviour
     private AudioClip _laserClip;
    
     private AudioSource _audioSource;
-    
+    [SerializeField]
+    private int _ammoType;
     
     
 
@@ -65,6 +72,8 @@ public class Player : MonoBehaviour
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
         _uiManager = GameObject.Find("Canvas").GetComponent<UI_Manager>();
         _audioSource = GetComponent<AudioSource>();
+        
+        
         
 
        
@@ -94,6 +103,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         CalculateMovement();
+        
 
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
         {
@@ -102,7 +112,19 @@ public class Player : MonoBehaviour
                 AudioSource.PlayClipAtPoint(_noAmmo, transform.position);
                 return;
             }
-            FireLaser();
+            switch (_ammoType)
+            {
+                case 0:
+                    FireLaser();
+
+                    break;
+                case 1:
+                    FireMissile();
+
+                    break;
+            }
+            
+          
         }
 
         
@@ -163,16 +185,29 @@ public class Player : MonoBehaviour
             Instantiate(_tripleShotPrefab, transform.position, Quaternion.identity);
 
         }
+       
         else
         {
             Instantiate(_laserPrefab, transform.position + new Vector3(0, 1.05f, 0), Quaternion.identity);
         }       
       
-        _audioSource.Play();
-       
-       
+        _audioSource.Play();  
     
     }
+
+    void FireMissile()
+    {
+        AmmoCount(-1);
+
+        _canFire = Time.time + _fireRate;
+
+        if (_isHeatSeekMissileActive == true)
+        {
+            Instantiate(_heatSeekMissilePrefab, transform.position + new Vector3(0, 1.05f, 0), Quaternion.identity);
+        }
+    }
+
+    
 
     public void AmmoCount(int bullets)
     {
@@ -299,6 +334,17 @@ public class Player : MonoBehaviour
      
        
     }
+
+    public void HeatSeekMissileActive()
+    {
+        
+     
+
+    }
+
+    
+
+   
 
     public void AddScore(int points)
     {

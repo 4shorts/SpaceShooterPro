@@ -7,10 +7,12 @@ public class Powerup : MonoBehaviour
     [SerializeField]
     private float _speed = 3f;
  
-    [SerializeField] //0 = Triple Shot 1 = Speed 2 = Shield
+    [SerializeField] //0 = Triple Shot 1 = Speed 2 = Shield 3 = AmmoRefill 4 = Health
     private int powerupID;
     [SerializeField]
     private AudioClip _clip;
+
+    
     
 
     
@@ -29,40 +31,44 @@ public class Powerup : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        
+
 
         if (other.tag == "Player")
         {
-            
+
 
             Player player = other.transform.GetComponent<Player>();
             AudioSource.PlayClipAtPoint(_clip, transform.position);
             if (player != null)
             {
 
-                switch(powerupID)
+                switch (powerupID)
                 {
                     case 0:
-                        
+
                         player.TripleShotActive();
-                        
+
                         break;
                     case 1:
-                        
+
                         player.SpeedBoostActive();
-                        
+
                         break;
                     case 2:
-                        
+
                         player.ShieldsActive();
-                        
+
                         break;
                     case 3:
-                        player.AmmoRefill(); 
+                        player.AmmoRefill();
 
                         break;
                     case 4:
                         player.Health();
+
+                        break;
+                    case 5:
+                        player.HeatSeekMissileActive();
 
                         break;
                     default:
@@ -71,12 +77,19 @@ public class Powerup : MonoBehaviour
 
 
                 }
-             
+
+
+
+
+
             }
-           
+
+
             Destroy(this.gameObject);
-             
+
         }
+
+        
+
     }
-   
 }
