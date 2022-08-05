@@ -11,6 +11,7 @@ public class Powerup : MonoBehaviour
     private int powerupID;
     [SerializeField]
     private AudioClip _clip;
+   
 
     
     
@@ -29,6 +30,7 @@ public class Powerup : MonoBehaviour
         
     }
 
+   
     private void OnTriggerEnter2D(Collider2D other)
     {
 

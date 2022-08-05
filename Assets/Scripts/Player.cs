@@ -26,6 +26,8 @@ public class Player : MonoBehaviour
     private int _ammoCount = 15;
     [SerializeField]
     private AudioClip _noAmmo;
+    
+   
 
     [SerializeField]
     private int _lives = 3;
@@ -60,9 +62,7 @@ public class Player : MonoBehaviour
     private AudioClip _laserClip;
    
     private AudioSource _audioSource;
-    [SerializeField]
-    private int _ammoType;
-    
+       
     
 
     // Start is called before the first frame update
@@ -102,6 +102,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         CalculateMovement();
         
 
@@ -112,17 +113,8 @@ public class Player : MonoBehaviour
                 AudioSource.PlayClipAtPoint(_noAmmo, transform.position);
                 return;
             }
-            switch (_ammoType)
-            {
-                case 0:
-                    FireLaser();
-
-                    break;
-                case 1:
-                    FireMissile();
-
-                    break;
-            }
+            FireLaser();
+           
             
           
         }
@@ -185,6 +177,10 @@ public class Player : MonoBehaviour
             Instantiate(_tripleShotPrefab, transform.position, Quaternion.identity);
 
         }
+        else if (_isHeatSeekMissileActive == true)
+        {
+            Instantiate(_heatSeekMissilePrefab, transform.position, Quaternion.identity);
+        }
        
         else
         {
@@ -193,18 +189,6 @@ public class Player : MonoBehaviour
       
         _audioSource.Play();  
     
-    }
-
-    void FireMissile()
-    {
-        AmmoCount(-1);
-
-        _canFire = Time.time + _fireRate;
-
-        if (_isHeatSeekMissileActive == true)
-        {
-            Instantiate(_heatSeekMissilePrefab, transform.position + new Vector3(0, 1.05f, 0), Quaternion.identity);
-        }
     }
 
     
@@ -337,11 +321,19 @@ public class Player : MonoBehaviour
 
     public void HeatSeekMissileActive()
     {
+        _isHeatSeekMissileActive = true;
         
-     
-
+        StartCoroutine(HeatSeekMissilePowerdownRoutine());
+       
+        
+       
     }
 
+    IEnumerator HeatSeekMissilePowerdownRoutine()
+    {
+        yield return new WaitForSeconds(5.0f);
+        _isHeatSeekMissileActive = false;
+    }
     
 
    

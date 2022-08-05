@@ -122,6 +122,22 @@ public class Enemy : MonoBehaviour
             
 
         }
+
+        if (other.tag == "HeatSeekMissile")
+        {
+            Destroy (other.gameObject);
+            if (_player != null)
+            {
+                _player.AddScore(10);
+            }
+            _anim.SetTrigger("OnEnemyDeath");
+            _speed = 0f;
+            _audioSource.Play();
+
+            Destroy(GetComponent<Collider2D>());
+            Destroy(this.gameObject, 2.8f);
+
+        }
       
     }
    

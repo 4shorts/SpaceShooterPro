@@ -2,64 +2,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class HeatSeekMissile : MonoBehaviour
 {
-    private bool _closestEnemyNull = false;
-    private Rigidbody2D rigidBody;
+    public Transform target;
     [SerializeField]
-    private float _moveSpeed = 10f;
+    private Rigidbody2D _rb;
     [SerializeField]
-    private float _angleChangeSpeed = 2f;
+    private float _speed = 5f;
+    [SerializeField]
+    private float _rotateSpeed = 200f;
 
     // Update is called once per frame
-    void Update()
+    void Start()
     {
-        
-        FindClosestEnemy();
-    }
-
-    public void FindClosestEnemy()
-    {
-        float distanceToClosestEnemy = Mathf.Infinity;
-        Enemy closestEnemy = null;
-        Enemy[] allEnemies = GameObject.FindObjectsOfType<Enemy>();
-
-        foreach (Enemy currentEnemy in allEnemies)
-        {
-            float _distanceToEnemy = (currentEnemy.transform.position - this.transform.position).sqrMagnitude;
-            if (_distanceToEnemy < distanceToClosestEnemy)
-            {
-                distanceToClosestEnemy = _distanceToEnemy;
-                closestEnemy = currentEnemy;
-            }
-        }
-
-        if (closestEnemy != null)
-        {
-            _closestEnemyNull = false;
-            Vector2 targetDirection = (Vector2)closestEnemy.transform.position - rigidBody.position;
-            targetDirection.Normalize();
-            float rotateAmount = Vector3.Cross(targetDirection, transform.up).z;
-            rigidBody.angularVelocity = -_angleChangeSpeed * rotateAmount;
-            rigidBody.velocity = transform.up * _moveSpeed;
-
-        }
-        else if (closestEnemy == null)
-        {
-            _closestEnemyNull = true;
-            FixedUpdate();
-        }
-
-
+        _rb = GetComponent<Rigidbody2D>();
     }
     void FixedUpdate()
     {
-        if (_closestEnemyNull == true)
-        {
-            rigidBody.velocity = transform.up * _moveSpeed;
-            transform.rotation = Quaternion.identity;
-        }
+
+        Vector2 direction = (Vector2)target.position - _rb.position;
+
+        direction.Normalize();
+
+        float rotateAmount = Vector3.Cross(direction, transform.up).z;
+
+        _rb.angularVelocity = -rotateAmount * _rotateSpeed;
+
+        Vector3.Cross(direction, transform.up);
+
+        _rb.velocity = transform.up * _speed;
+       
     }
 
+   
     
 }
