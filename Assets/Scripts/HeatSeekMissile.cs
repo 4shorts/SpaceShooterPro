@@ -16,25 +16,37 @@ public class HeatSeekMissile : MonoBehaviour
     // Update is called once per frame
     void Start()
     {
+        target = GameObject.FindWithTag("Enemy").transform;
         _rb = GetComponent<Rigidbody2D>();
     }
     void FixedUpdate()
     {
+        if (target != null)
+        {
 
-        Vector2 direction = (Vector2)target.position - _rb.position;
+            Vector2 direction = (Vector2)target.position - _rb.position;
 
-        direction.Normalize();
+            direction.Normalize();
 
-        float rotateAmount = Vector3.Cross(direction, transform.up).z;
+            float rotateAmount = Vector3.Cross(direction, transform.up).z;
 
-        _rb.angularVelocity = -rotateAmount * _rotateSpeed;
+            _rb.angularVelocity = -rotateAmount * _rotateSpeed;
 
-        Vector3.Cross(direction, transform.up);
+            Vector3.Cross(direction, transform.up);
 
-        _rb.velocity = transform.up * _speed;
-       
+            _rb.velocity = transform.up * _speed;
+
+
+            if (transform.position.y > 8f)
+            {
+                Destroy(this.gameObject);
+            }
+            if (transform.position.y < -8f)
+            {
+                Destroy(this.gameObject);
+            }
+        }
+
     }
 
-   
-    
 }
