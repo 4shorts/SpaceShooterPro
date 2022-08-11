@@ -8,7 +8,14 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float _speed = 5f;
     [SerializeField]
-    private float _speedMultiplier = 20;
+    private float _speedMultiplier = 2;
+    [SerializeField]
+    private float _minSpeed = 5f;
+    [SerializeField]
+    private float _maxSpeed = 10f;
+    
+   
+    
     [SerializeField]
     private GameObject _laserPrefab;
     [SerializeField]
@@ -18,8 +25,6 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float _fireRate = 0.5f;
     private float _canFire = -1f;
-    
-
     [SerializeField]
     private int _ammoCount = 15;
     [SerializeField]
@@ -70,11 +75,7 @@ public class Player : MonoBehaviour
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
         _uiManager = GameObject.Find("Canvas").GetComponent<UI_Manager>();
         _audioSource = GetComponent<AudioSource>();
-        
-        
-        
-
-       
+                
 
         if (_spawnManager == null)
         {
@@ -103,6 +104,7 @@ public class Player : MonoBehaviour
 
         CalculateMovement();
         
+        
 
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
         {
@@ -112,14 +114,23 @@ public class Player : MonoBehaviour
                 return;
             }
             FireLaser();
-           
-            
-          
-        }
-
-        
+                     
+        }  
 
     }
+
+    public void ThrusterBoostActivated()
+    {
+        _speed = _maxSpeed;
+        _uiManager.UpdateThrusterBarUsed();
+    }
+
+    public void ThrusterBoostDeactivated()
+    {
+        _speed = _minSpeed;
+        _uiManager.UpdateThrusterBarRefill();
+    }
+    
     
     void CalculateMovement()
     {
@@ -129,19 +140,9 @@ public class Player : MonoBehaviour
         Vector3 direction = new Vector3(horizontalInput, verticalInput, 0);
 
 
-        transform.Translate(direction * _speed * Time.deltaTime);
+        transform.Translate(direction * _speed  * Time.deltaTime);
 
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            _speed = 8f;
-        }
-        else
-        {
-            _speed = 5f;
-        }
-            
-          
-
+        
 
         if (transform.position.y >= 0)
         {
@@ -162,6 +163,11 @@ public class Player : MonoBehaviour
         }
 
     }
+
+   
+
+    
+    
 
     void FireLaser()
     {
@@ -189,8 +195,6 @@ public class Player : MonoBehaviour
     
     }
 
-    
-
     public void AmmoCount(int bullets)
     {
         _ammoCount += bullets;
@@ -199,13 +203,9 @@ public class Player : MonoBehaviour
     }
 
     public void AmmoRefill()
-    {
-        
-        
+    {       
             _ammoCount += 15;
-            _uiManager.UpdateAmmoCount(_ammoCount);
-           
-        
+            _uiManager.UpdateAmmoCount(_ammoCount);        
     }
 
     public void Health()
@@ -251,10 +251,7 @@ public class Player : MonoBehaviour
         else if (_lives == 1)
         {
             _leftEngine.SetActive(true);
-        }
-        
-
-       
+        }       
 
         _uiManager.UpdateLives(_lives);
 
@@ -287,6 +284,7 @@ public class Player : MonoBehaviour
 
 
     }
+    
 
     public void SpeedBoostActive()
     {

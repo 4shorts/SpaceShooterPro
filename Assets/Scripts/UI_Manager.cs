@@ -18,6 +18,11 @@ public class UI_Manager : MonoBehaviour
     private Text _restartLevelText;
     [SerializeField]
     private Text _ammoText;
+    [SerializeField]
+    private Slider _thrusterBar;
+   
+    
+   
     
     private GameManager _gameManager;
     // Start is called before the first frame update
@@ -29,6 +34,7 @@ public class UI_Manager : MonoBehaviour
         _gameOverText.gameObject.SetActive(false);
         _restartLevelText.gameObject.SetActive(false);
         _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
+        _thrusterBar = GameObject.Find("Thruster_Bar").GetComponent<Slider>();
 
         if (_gameManager == null)
         {
@@ -42,6 +48,7 @@ public class UI_Manager : MonoBehaviour
     {
         _scoreText.text = "Score: " + playerScore;
     }
+
 
     public void UpdateLives(int currentLives)
     {
@@ -59,6 +66,18 @@ public class UI_Manager : MonoBehaviour
         _ammoText.text = "Shots: " + bulletsLeft;
     }
 
+
+    public void UpdateThrusterBarUsed()
+    {
+        _thrusterBar.value -= _thrusterBar.value * Time.deltaTime;
+    }
+
+    public void UpdateThrusterBarRefill()
+    {
+        _thrusterBar.value += _thrusterBar.value  * Time.deltaTime;      
+    }  
+     
+    
     void GameOverSequence()
     {
         _gameManager.GameOver();

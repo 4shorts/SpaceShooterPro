@@ -8,6 +8,7 @@ TagManager:
   - Laser
   - shieldVisualizer
   - HeatSeekMissile
+  - ThrusterBar
   layers:
   - Default
   - TransparentFX
