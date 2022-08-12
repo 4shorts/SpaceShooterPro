@@ -580,7 +580,6 @@ MonoBehaviour:
   _restartLevelText: {fileID: 605323370}
   _ammoText: {fileID: 1726182392}
   _thrusterBar: {fileID: 923805996}
-  _currentValue: 100
 --- !u!1 &501451605
 GameObject:
   m_ObjectHideFlags: 0
@@ -1276,7 +1275,6 @@ GameObject:
   - component: {fileID: 1349617063}
   - component: {fileID: 1349617066}
   - component: {fileID: 1349617067}
-  - component: {fileID: 1349617068}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1300,6 +1298,7 @@ MonoBehaviour:
   _speedMultiplier: 2
   _minSpeed: 5
   _maxSpeed: 8
+  _full: 100
   _laserPrefab: {fileID: 6470472218735852540, guid: 93e0fb8feb15aea429d0a0b368efd017,
     type: 3}
   _tripleShotPrefab: {fileID: 2685410171942490565, guid: f1270f346231d8d409938149b9a7f117,
@@ -1507,18 +1506,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1349617068
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1349617062}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6cdd2e2c1c0634a42aea55cf857f8b07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1550079420
 GameObject:
   m_ObjectHideFlags: 0

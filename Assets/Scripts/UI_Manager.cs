@@ -67,15 +67,13 @@ public class UI_Manager : MonoBehaviour
     }
 
 
-    public void UpdateThrusterBarUsed()
+    public void UpdateThrusterBar(float fuel)
     {
-        _thrusterBar.value -= _thrusterBar.value * Time.deltaTime;
+        _thrusterBar.value = fuel;
     }
 
-    public void UpdateThrusterBarRefill()
-    {
-        _thrusterBar.value += _thrusterBar.value  * Time.deltaTime;      
-    }  
+
+    
      
     
     void GameOverSequence()

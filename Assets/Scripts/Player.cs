@@ -13,6 +13,8 @@ public class Player : MonoBehaviour
     private float _minSpeed = 5f;
     [SerializeField]
     private float _maxSpeed = 10f;
+    [SerializeField]
+    private float _fuel = 100f;
     
    
     
@@ -103,7 +105,7 @@ public class Player : MonoBehaviour
     {
 
         CalculateMovement();
-        
+        ThrusterBoost();
         
 
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
@@ -119,16 +121,30 @@ public class Player : MonoBehaviour
 
     }
 
-    public void ThrusterBoostActivated()
+    void ThrusterBoost()
     {
-        _speed = _maxSpeed;
-        _uiManager.UpdateThrusterBarUsed();
-    }
-
-    public void ThrusterBoostDeactivated()
-    {
-        _speed = _minSpeed;
-        _uiManager.UpdateThrusterBarRefill();
+        if(Input.GetKey(KeyCode.LeftShift))
+        {
+            _speed = _maxSpeed;
+            if (_fuel > 0)
+            {
+                _fuel -= 20f * Time.deltaTime;
+                
+            }
+            else if (_fuel <= 0)
+            {
+                _speed = _minSpeed;
+            }
+        }
+        else
+        {
+            _speed = _minSpeed;
+            if(_fuel < 100)
+            {
+                _fuel += 5f * Time.deltaTime;
+            }
+        }
+        _uiManager.UpdateThrusterBar(_fuel);
     }
     
     
