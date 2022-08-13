@@ -1298,7 +1298,7 @@ MonoBehaviour:
   _speedMultiplier: 2
   _minSpeed: 5
   _maxSpeed: 8
-  _full: 100
+  _fuel: 100
   _laserPrefab: {fileID: 6470472218735852540, guid: 93e0fb8feb15aea429d0a0b368efd017,
     type: 3}
   _tripleShotPrefab: {fileID: 2685410171942490565, guid: f1270f346231d8d409938149b9a7f117,
@@ -1316,6 +1316,7 @@ MonoBehaviour:
   _leftEngine: {fileID: 1837430326}
   _score: 0
   _laserClip: {fileID: 8300000, guid: 75676f361bdfeaf41a46623e95df3dbc, type: 3}
+  cameraShake: {fileID: 1809126885}
 --- !u!212 &1349617064
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1556,7 +1557,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.18155926, g: 0.2594823, b: 0.754717, a: 1}
+  m_Color: {r: 0.18039215, g: 0.2676975, b: 0.7529412, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1810,6 +1811,7 @@ GameObject:
   - component: {fileID: 1809126882}
   - component: {fileID: 1809126881}
   - component: {fileID: 1809126884}
+  - component: {fileID: 1809126885}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1942,6 +1944,18 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
+--- !u!114 &1809126885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1809126880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b1e24463d079804c93645244c2bc676, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1837430326
 GameObject:
   m_ObjectHideFlags: 0

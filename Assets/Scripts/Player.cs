@@ -67,6 +67,9 @@ public class Player : MonoBehaviour
     private AudioClip _laserClip;
    
     private AudioSource _audioSource;
+
+    public CameraShake cameraShake;
+    
        
     
 
@@ -77,7 +80,9 @@ public class Player : MonoBehaviour
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
         _uiManager = GameObject.Find("Canvas").GetComponent<UI_Manager>();
         _audioSource = GetComponent<AudioSource>();
-                
+       
+        
+              
 
         if (_spawnManager == null)
         {
@@ -232,6 +237,7 @@ public class Player : MonoBehaviour
         _uiManager.UpdateLives(_lives);
     }
 
+    
     public void Damage()
     {
 
@@ -245,10 +251,12 @@ public class Player : MonoBehaviour
                     _shieldVisualizer.GetComponent<SpriteRenderer>().material.color = new Color(1f, 1f, 1f, _playerShieldAlpha);
                     break;
                 case 2:
+                    StartCoroutine(cameraShake.Shake(.15f, .15f));
                     _playerShieldAlpha = 0.40f;
                     _shieldVisualizer.GetComponent<SpriteRenderer>().material.color = new Color(1f, 1f, 1f, _playerShieldAlpha);
                     break;
                 case 3:
+                    StartCoroutine(cameraShake.Shake(.25f, .25f));
                     _isShieldsActive = false;
                     _shieldVisualizer.SetActive(false);
                     break;
@@ -262,10 +270,12 @@ public class Player : MonoBehaviour
 
         if (_lives == 2)
         {
+            StartCoroutine(cameraShake.Shake(.35f, .35f));
             _rightEngine.SetActive(true);
         }
         else if (_lives == 1)
         {
+            StartCoroutine(cameraShake.Shake(.5f, .5f));
             _leftEngine.SetActive(true);
         }       
 
@@ -273,7 +283,7 @@ public class Player : MonoBehaviour
 
         if (_lives < 1)
         {
-
+         
             _spawnManager.OnPlayerDeath();
             Destroy(this.gameObject);
 
@@ -282,6 +292,7 @@ public class Player : MonoBehaviour
 
     }
 
+    
     public void TripleShotActive()
     {
         
