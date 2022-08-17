@@ -30,7 +30,7 @@ public class UI_Manager : MonoBehaviour
     {
        
         _scoreText.text = "Score: 0";
-        _ammoText.text = "Shots: 15";
+        _ammoText.text = "Shots: 15/50";
         _gameOverText.gameObject.SetActive(false);
         _restartLevelText.gameObject.SetActive(false);
         _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
@@ -63,7 +63,7 @@ public class UI_Manager : MonoBehaviour
 
     public void UpdateAmmoCount(int bulletsLeft)
     {
-        _ammoText.text = "Shots: " + bulletsLeft;
+        _ammoText.text = "Shots: " + bulletsLeft + "/50";
     }
 
 

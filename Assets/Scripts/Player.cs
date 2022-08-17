@@ -219,6 +219,10 @@ public class Player : MonoBehaviour
     public void AmmoCount(int bullets)
     {
         _ammoCount += bullets;
+        if (_ammoCount > 50)
+        {
+            _ammoCount = 50;
+        }
         _uiManager.UpdateAmmoCount(_ammoCount);
         
     }
@@ -247,16 +251,17 @@ public class Player : MonoBehaviour
             switch (_shieldHits)
             {
                 case 1:
+                    StartCoroutine(cameraShake.Shake(.5f, .05f));
                     _playerShieldAlpha = 0.75f;
                     _shieldVisualizer.GetComponent<SpriteRenderer>().material.color = new Color(1f, 1f, 1f, _playerShieldAlpha);
                     break;
                 case 2:
-                    StartCoroutine(cameraShake.Shake(.15f, .15f));
+                    StartCoroutine(cameraShake.Shake(.5f, .15f));
                     _playerShieldAlpha = 0.40f;
                     _shieldVisualizer.GetComponent<SpriteRenderer>().material.color = new Color(1f, 1f, 1f, _playerShieldAlpha);
                     break;
                 case 3:
-                    StartCoroutine(cameraShake.Shake(.25f, .25f));
+                    StartCoroutine(cameraShake.Shake(.5f, .25f));
                     _isShieldsActive = false;
                     _shieldVisualizer.SetActive(false);
                     break;
@@ -270,14 +275,15 @@ public class Player : MonoBehaviour
 
         if (_lives == 2)
         {
-            StartCoroutine(cameraShake.Shake(.35f, .35f));
+            StartCoroutine(cameraShake.Shake(.5f, .5f));
             _rightEngine.SetActive(true);
         }
         else if (_lives == 1)
         {
-            StartCoroutine(cameraShake.Shake(.5f, .5f));
+            StartCoroutine(cameraShake.Shake(.5f, .7f));
             _leftEngine.SetActive(true);
-        }       
+        }   
+        
 
         _uiManager.UpdateLives(_lives);
 
