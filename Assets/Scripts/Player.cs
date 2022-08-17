@@ -218,19 +218,22 @@ public class Player : MonoBehaviour
 
     public void AmmoCount(int bullets)
     {
-        _ammoCount += bullets;
         if (_ammoCount > 50)
         {
             _ammoCount = 50;
         }
+        _ammoCount += bullets;
         _uiManager.UpdateAmmoCount(_ammoCount);
         
     }
 
     public void AmmoRefill()
-    {       
-            _ammoCount += 15;
-            _uiManager.UpdateAmmoCount(_ammoCount);        
+    {
+       
+        
+        _ammoCount += 15;
+        
+        _uiManager.UpdateAmmoCount(_ammoCount);        
     }
 
     public void Health()

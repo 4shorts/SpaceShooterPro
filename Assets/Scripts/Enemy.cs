@@ -7,6 +7,12 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private float _speed = 4f;
     [SerializeField]
+    private float _spawnTime;
+    [SerializeField]
+    private float _frequency;
+    private float _phase;
+    private int _enemyID = 0;
+    private float _distanceY;
     private GameObject _laserPrefab;
     private Player _player;
 
@@ -25,6 +31,19 @@ public class Enemy : MonoBehaviour
     {
         _player = GameObject.Find("Player").GetComponent<Player>();
         _audioSource = GetComponent<AudioSource>();
+        _spawnTime = Time.time;
+        _speed *= Random.Range(0.75f, 1.25f);
+
+        if (Random.Range(0, 4) == 3)
+        {
+            _enemyID = 1;
+            _frequency = Mathf.PI * Random.Range(0.16f, 0.64f);
+            _phase = Random.Range(0f, 2f);
+        }
+        else
+        {
+            _enemyID = 0;
+        }
        
         
         if (_player == null)
@@ -55,7 +74,7 @@ public class Enemy : MonoBehaviour
         
         CalculateMovement();
        
-        if (Time.time > _canFire)
+        if (Time.time > _canFire && _enemyID == 0)
         {
             _fireRate = Random.Range(3f, 7f);
 
@@ -69,10 +88,21 @@ public class Enemy : MonoBehaviour
                 lasers[i].AssignEnemyLaser();
             }
         }
+
+       
     }
 
     void CalculateMovement()
     {
+        if (_enemyID == 1)
+        {
+            _distanceY = _speed * Mathf.Sin(_frequency * Time.time - _spawnTime + _phase) * Time.deltaTime;
+        }
+        else
+        {
+            _distanceY = 0f;
+        }
+        transform.Translate(Vector3.right * _distanceY);
         transform.Translate(Vector3.down * _speed * Time.deltaTime);
 
         if (transform.position.y < -6f)
@@ -81,6 +111,14 @@ public class Enemy : MonoBehaviour
             transform.position = new Vector3(randomX, 8f, 0);
         }
 
+        if (transform.position.x > 11f)
+        {
+            transform.position = new Vector3(-11f, transform.position.y, 0);
+        }
+        else if (transform.position.x < -11f)
+        {
+            transform.position = new Vector3(11f, transform.position.y, 0);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
