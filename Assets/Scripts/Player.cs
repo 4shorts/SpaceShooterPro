@@ -124,6 +124,11 @@ public class Player : MonoBehaviour
                      
         }  
 
+        if (_ammoCount > 50)
+        {
+            _ammoCount = 50;
+        }
+
     }
 
     void ThrusterBoost()
@@ -218,10 +223,7 @@ public class Player : MonoBehaviour
 
     public void AmmoCount(int bullets)
     {
-        if (_ammoCount > 50)
-        {
-            _ammoCount = 50;
-        }
+        
         _ammoCount += bullets;
         _uiManager.UpdateAmmoCount(_ammoCount);
         

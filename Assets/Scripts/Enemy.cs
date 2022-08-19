@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private float _frequency;
     private float _phase;
+    [SerializeField]
     private int _enemyID = 0;
     private float _distanceY;
     private GameObject _laserPrefab;
@@ -22,7 +23,12 @@ public class Enemy : MonoBehaviour
     private AudioSource _audioSource;
     private float _fireRate = 3.0f;
     private float _canFire = -1;
-  
+
+    public Transform target;
+    [SerializeField]
+    private Rigidbody2D _rb;
+    [SerializeField]
+    private float _rotateSpeed = 200f;
     
 
     
@@ -33,17 +39,16 @@ public class Enemy : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
         _spawnTime = Time.time;
         _speed *= Random.Range(0.75f, 1.25f);
+        target = GameObject.FindWithTag("Player").transform;
+        _rb = GetComponent<Rigidbody2D>();
 
-        if (Random.Range(0, 4) == 3)
-        {
-            _enemyID = 1;
-            _frequency = Mathf.PI * Random.Range(0.16f, 0.64f);
-            _phase = Random.Range(0f, 2f);
-        }
-        else
-        {
-            _enemyID = 0;
-        }
+       
+      
+        _frequency = Mathf.PI * Random.Range(0.16f, 0.64f);
+        _phase = Random.Range(0f, 2f);
+               
+       
+       
        
         
         if (_player == null)
@@ -74,7 +79,7 @@ public class Enemy : MonoBehaviour
         
         CalculateMovement();
        
-        if (Time.time > _canFire && _enemyID == 0)
+        if (Time.time > _canFire)
         {
             _fireRate = Random.Range(3f, 7f);
 
@@ -94,16 +99,37 @@ public class Enemy : MonoBehaviour
 
     void CalculateMovement()
     {
-        if (_enemyID == 1)
+        switch(_enemyID)
         {
-            _distanceY = _speed * Mathf.Sin(_frequency * Time.time - _spawnTime + _phase) * Time.deltaTime;
+            case 0:
+                {
+                    _distanceY = 0;
+                    transform.Translate(Vector3.down * _speed * Time.deltaTime);
+                    break;
+                }
+            case 1:
+                {
+                    _distanceY = _speed * Mathf.Sin(_frequency * Time.time - _spawnTime + _phase) * Time.deltaTime;
+                    transform.Translate(Vector3.right * _distanceY);
+                    transform.Translate(Vector3.down * _speed * Time.deltaTime);
+                    break;
+                }
+            case 2:
+                {
+                    Vector2 direction = (Vector2)target.position - _rb.position;
+                    direction.Normalize();
+                    float rotateAmount = Vector3.Cross(direction, transform.up).z;
+                    _rb.angularVelocity = -rotateAmount * _rotateSpeed;
+                    Vector3.Cross(direction, transform.up);
+                    _rb.velocity = transform.up * _speed;
+                    break;
+                }
+                
         }
-        else
-        {
-            _distanceY = 0f;
-        }
-        transform.Translate(Vector3.right * _distanceY);
-        transform.Translate(Vector3.down * _speed * Time.deltaTime);
+       
+       
+       
+        
 
         if (transform.position.y < -6f)
         {
@@ -121,7 +147,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerEnter2D(Collider2D other)
     {
         
         if (other.tag == "Player")
