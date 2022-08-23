@@ -49,9 +49,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 4
-  _laserPrefab: {fileID: 6523561082008101788, guid: a90c7541ff0e5864ea65b082fbe94c3b,
-    type: 3}
+  _horizontalSpeed: 2
+  _spawnTime: 0
+  _frequency: 0
+  _enemyID: 0
   _explostionClip: {fileID: 8300000, guid: a885c043fab7e46438bba03ba9dab6bc, type: 3}
+  target: {fileID: 0}
+  _rb: {fileID: 0}
+  _rotateSpeed: 200
 --- !u!212 &586042394453793028
 SpriteRenderer:
   m_ObjectHideFlags: 0

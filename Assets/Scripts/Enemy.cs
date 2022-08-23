@@ -16,7 +16,6 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private int _enemyID = 0;
     private float _distanceY;
-    private float _distanceX;
     private GameObject _laserPrefab;
     private Player _player;
 
@@ -90,20 +89,7 @@ public class Enemy : MonoBehaviour
         
         CalculateMovement();
        
-       /* if (Time.time > _canFire)
-        {
-            _fireRate = Random.Range(3f, 7f);
-
-            _canFire = Time.time + _fireRate;
-
-            GameObject enemyLaser = Instantiate(_laserPrefab, transform.position, Quaternion.identity);
-            Laser[] lasers = enemyLaser.GetComponentsInChildren<Laser>();
-
-            for (int i = 0; i < lasers.Length; i++)
-            {
-                lasers[i].AssignEnemyLaser();
-            }
-        }*/
+      
 
        
     }
@@ -138,15 +124,18 @@ public class Enemy : MonoBehaviour
 
             case 3:
                 {
-                    _distanceY = 0;
                     transform.Translate(Vector3.down * _speed * Time.deltaTime);
                     break;
                 }
 
             case 4:
-                {
-                    
+                {                   
                     transform.Translate(Vector3.right * _horizontalSpeed * Time.deltaTime);
+                    break;
+                }
+            case 5:
+                {
+                    transform.Translate(Vector3.left * _horizontalSpeed * Time.deltaTime);
                     break;
                 }
                            
