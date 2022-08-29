@@ -100,6 +100,12 @@ public class EnemyWeapons : MonoBehaviour
                 Destroy(this.gameObject);
             }
         }
+
+        if (other.tag == "Powerup")
+        {
+            Destroy(other.gameObject);
+            Destroy(this.gameObject);
+        }
         
     }
 }
