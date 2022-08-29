@@ -31,6 +31,10 @@ public class Player : MonoBehaviour
     private int _ammoCount = 15;
     [SerializeField]
     private AudioClip _noAmmo;
+    [SerializeField]
+    private int _maxAmmoCount = 50;
+    [SerializeField]
+    private int _noAmmoCount = 0;
     
    
 
@@ -44,6 +48,7 @@ public class Player : MonoBehaviour
     private bool _isSpeedBoostActive = false;
     private bool _isShieldsActive = false;
     private bool _isHeatSeekMissileActive = false;
+    private bool _isAmmoRemoveActive = false;
    
 
 
@@ -126,7 +131,7 @@ public class Player : MonoBehaviour
 
         if (_ammoCount > 50)
         {
-            _ammoCount = 50;
+            _ammoCount = _maxAmmoCount;
         }
 
     }
@@ -238,6 +243,15 @@ public class Player : MonoBehaviour
         _uiManager.UpdateAmmoCount(_ammoCount);        
     }
 
+    public void AmmoRemove()
+    {
+        
+        _ammoCount = 0;
+        _uiManager.UpdateAmmoCount(_ammoCount);
+            
+        
+    }
+
     public void Health()
     {
         _lives = 3;
@@ -326,10 +340,11 @@ public class Player : MonoBehaviour
 
     public void SpeedBoostActive()
     {
-        _isSpeedBoostActive = true;
-       
-        _speed *= _speedMultiplier;
-        StartCoroutine(SpeedBoostPowerDownRoutine());
+        if (_isSpeedBoostActive == true)
+        {
+            _speed *= _speedMultiplier;
+            StartCoroutine(SpeedBoostPowerDownRoutine());
+        }
     }
 
 
@@ -379,7 +394,9 @@ public class Player : MonoBehaviour
 
 
     }
-    
 
     
+
+
+
 }

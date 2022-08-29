@@ -9,6 +9,7 @@ TagManager:
   - shieldVisualizer
   - HeatSeekMissile
   - ThrusterBar
+  - EnemyWeapon
   layers:
   - Default
   - TransparentFX

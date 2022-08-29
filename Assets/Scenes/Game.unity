@@ -780,6 +780,7 @@ MonoBehaviour:
   - {fileID: 7081506330929759310, guid: baa6ae7e59af082439ffa3758650e327, type: 3}
   - {fileID: 5376008619923001378, guid: 77ee977d457cef5428257d8c42a8f8f1, type: 3}
   - {fileID: 2776026451922260709, guid: c88305f74ac053944a90a56c2dcbd990, type: 3}
+  - {fileID: 8294830286103545782, guid: 0257c0c626b8a764c86152c904a6df7f, type: 3}
   _enemies:
   - {fileID: 2574753504044598886, guid: 292e441afcd87b341804ee7b4fae38c5, type: 3}
   - {fileID: 8904595739072779170, guid: dd7dc060bdc935d43a3a89ca66547f0b, type: 3}
@@ -787,6 +788,7 @@ MonoBehaviour:
   - {fileID: 3384782992954079322, guid: 9256f1cd54ea15a448bf31af4e6595f9, type: 3}
   - {fileID: 2018552734730055480, guid: 2624750c9f61d1f4eb92f2b2ccc4514e, type: 3}
   - {fileID: 3314055028080166647, guid: 525e154432eb1df428a91512ede49f5e, type: 3}
+  - {fileID: 5937451682088669017, guid: 57c688b734fc4d942bd2058812c64cb6, type: 3}
 --- !u!4 &641658917
 Transform:
   m_ObjectHideFlags: 0
@@ -802,6 +804,75 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &695661614
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4922316659341961492, guid: 57c688b734fc4d942bd2058812c64cb6,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4922316659341961492, guid: 57c688b734fc4d942bd2058812c64cb6,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 4922316659341961492, guid: 57c688b734fc4d942bd2058812c64cb6,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.89
+      objectReference: {fileID: 0}
+    - target: {fileID: 4922316659341961492, guid: 57c688b734fc4d942bd2058812c64cb6,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4922316659341961492, guid: 57c688b734fc4d942bd2058812c64cb6,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4922316659341961492, guid: 57c688b734fc4d942bd2058812c64cb6,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4922316659341961492, guid: 57c688b734fc4d942bd2058812c64cb6,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4922316659341961492, guid: 57c688b734fc4d942bd2058812c64cb6,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4922316659341961492, guid: 57c688b734fc4d942bd2058812c64cb6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4922316659341961492, guid: 57c688b734fc4d942bd2058812c64cb6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4922316659341961492, guid: 57c688b734fc4d942bd2058812c64cb6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5937451682088669017, guid: 57c688b734fc4d942bd2058812c64cb6,
+        type: 3}
+      propertyPath: m_Name
+      value: Smart_Enemy
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 57c688b734fc4d942bd2058812c64cb6, type: 3}
 --- !u!1 &808789754
 GameObject:
   m_ObjectHideFlags: 0
@@ -845,7 +916,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 5b17a0088dcdf924fa92da5af1e1be07, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.7
+  m_Volume: 0.557
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -1386,6 +1457,8 @@ MonoBehaviour:
   _fireRate: 0.15
   _ammoCount: 15
   _noAmmo: {fileID: 8300000, guid: 1aa060f778243d94c9d9518b65c0d44b, type: 3}
+  _maxAmmoCount: 50
+  _noAmmoCount: 0
   _lives: 3
   _shieldHits: 0
   _playerShieldAlpha: 1

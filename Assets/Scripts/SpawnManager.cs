@@ -24,6 +24,7 @@ public class SpawnManager : MonoBehaviour
         StartCoroutine(SpawnPowerupRoutine());
         StartCoroutine(SpawnAlienSaucerRoutine());
         StartCoroutine(SpawnAlienSaucer2Routine());
+        StartCoroutine(SpawnSmartEnemyRoutine());
     }
 
     IEnumerator SpawnEnemyRoutine()
@@ -62,6 +63,18 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
+    IEnumerator SpawnSmartEnemyRoutine()
+    {
+        yield return new WaitForSeconds(10.0f);
+        while(_stopSpawning==false)
+        {
+            Vector3 posToSpawn = new Vector3(Random.Range(-9f, 9f), 7, 0);
+            GameObject newEnemy = Instantiate(_enemies[6], posToSpawn, Quaternion.identity);
+            newEnemy.transform.parent = _enemyContainer.transform;
+            yield return new WaitForSeconds(5.0f);
+        }
+    }
+
 
     IEnumerator SpawnPowerupRoutine()
     {
@@ -69,7 +82,7 @@ public class SpawnManager : MonoBehaviour
         while (_stopSpawning == false)
         {
             Vector3 posToSpawn = new Vector3(Random.Range(-9f, 9f), 7, 0);
-            int randomPowerUp = Random.Range(0, 6);
+            int randomPowerUp = Random.Range(0, 7);
             float wait_time = Random.Range(3, 8);
             Instantiate(_powerups[randomPowerUp], posToSpawn, Quaternion.identity);
             yield return new WaitForSeconds(wait_time);

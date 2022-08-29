@@ -73,6 +73,10 @@ public class Powerup : MonoBehaviour
                         player.HeatSeekMissileActive();
 
                         break;
+                    case 6:
+                        player.AmmoRemove();
+
+                        break;
                     default:
                         Debug.Log("default");
                         break;

@@ -16,9 +16,11 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private int _enemyID = 0;
     private float _distanceY;
-    private GameObject _laserPrefab;
+    [SerializeField]
+    private GameObject _enemyLaserPrefab;
     private Player _player;
-
+    [SerializeField]
+    private GameObject _enemyMissilePrefab;
     private Animator _anim;
     [SerializeField]
     private AudioClip _explostionClip;
@@ -88,7 +90,8 @@ public class Enemy : MonoBehaviour
     {
         
         CalculateMovement();
-       
+        
+        
       
 
        
@@ -102,6 +105,7 @@ public class Enemy : MonoBehaviour
                 {
                     _distanceY = 0;
                     transform.Translate(Vector3.down * _speed * Time.deltaTime);
+                    FireLaser();
                     break;
                 }
             case 1:
@@ -109,22 +113,28 @@ public class Enemy : MonoBehaviour
                     _distanceY = _speed * Mathf.Sin(_frequency * Time.time - _spawnTime + _phase) * Time.deltaTime;
                     transform.Translate(Vector3.right * _distanceY);
                     transform.Translate(Vector3.down * _speed * Time.deltaTime);
+                    FireLaser();
                     break;
                 }
             case 2:
                 {
-                    Vector2 direction = (Vector2)target.position - _rb.position;
-                    direction.Normalize();
-                    float rotateAmount = Vector3.Cross(direction, transform.up).z;
-                    _rb.angularVelocity = -rotateAmount * _rotateSpeed;
-                    Vector3.Cross(direction, transform.up);
-                    _rb.velocity = transform.up * _speed;
+                    if (_player != null)
+                    {
+                        Vector2 direction = (Vector2)target.position - _rb.position;
+                        direction.Normalize();
+                        float rotateAmount = Vector3.Cross(direction, transform.up).z;
+                        _rb.angularVelocity = -rotateAmount * _rotateSpeed;
+                        Vector3.Cross(direction, transform.up);
+                        _rb.velocity = transform.up * _speed;
+                        FireEnemyMissile();
+                    }
                     break;
                 }
 
             case 3:
                 {
                     transform.Translate(Vector3.down * _speed * Time.deltaTime);
+                    FireLaser();
                     break;
                 }
 
@@ -136,6 +146,20 @@ public class Enemy : MonoBehaviour
             case 5:
                 {
                     transform.Translate(Vector3.left * _horizontalSpeed * Time.deltaTime);
+                    break;
+                }
+            case 6:
+                {
+                    transform.Translate(Vector3.down * _speed * Time.deltaTime);
+                    
+                   
+                    Vector3 targetDir = target.position - transform.position;
+                    float angle = Mathf.Atan2(targetDir.y, targetDir.x) * Mathf.Rad2Deg;
+                    Quaternion q = Quaternion.AngleAxis(angle + 90, Vector3.forward);
+                    
+                   
+                    transform.GetChild(0).transform.rotation = Quaternion.RotateTowards(transform.rotation, q, _rotateSpeed);
+                    FireSmartLaser(q);
                     break;
                 }
                            
@@ -158,6 +182,39 @@ public class Enemy : MonoBehaviour
         else if (transform.position.x < -11f)
         {
             transform.position = new Vector3(11f, transform.position.y, 0);
+        }
+    }
+
+    void FireLaser()
+    {
+        if (Time.time > _canFire)
+        {
+            _fireRate = Random.Range(3f, 7f);
+            _canFire = Time.time + _fireRate;
+            Instantiate(_enemyLaserPrefab, transform.position, Quaternion.identity);
+            
+        }
+    }
+
+    void FireEnemyMissile()
+    {
+        if (Time.time > _canFire)
+        {
+            _fireRate = Random.Range(3f, 7f);
+            _canFire = Time.time + _fireRate;
+            Instantiate(_enemyMissilePrefab, transform.position, Quaternion.identity);
+        }
+    }
+
+    void FireSmartLaser(Quaternion fireAngle)
+    {
+        if (Time.time > _canFire)
+        {
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up);
+            _fireRate = Random.Range(3f, 7f);
+            _canFire = Time.time + _fireRate;
+            Instantiate(_enemyLaserPrefab, transform.position, fireAngle);
+
         }
     }
 
