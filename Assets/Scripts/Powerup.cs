@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class Powerup : MonoBehaviour
 {
@@ -11,23 +12,58 @@ public class Powerup : MonoBehaviour
     private int powerupID;
     [SerializeField]
     private AudioClip _clip;
+    [SerializeField]
+    private float _collectionSpeed = 5f;
+
+    private bool _isCollecting = false;
+
+    Vector3 playerPos;
    
+    private GameObject _player;
 
-    
-    
 
-    
+
+    private void Start()
+    {
+        _player = GameObject.FindWithTag("Player");
+    }
+
+
+
+
 
     // Update is called once per frame
     void Update()
     {
-       
-        transform.Translate(Vector3.down * _speed * Time.deltaTime);
+        if (_isCollecting)
+        {
+            PowerupCollectionMove();
+        }
+        else
+        {
+
+            transform.Translate(Vector3.down * _speed * Time.deltaTime);
+        }
+        
         if (transform.position.y < -6f)
         {
             Destroy(this.gameObject);
         }
         
+        
+    }
+
+    void PowerupCollectionMove()
+    {
+        playerPos = _player.transform.position;
+        Vector3 direction = transform.position - playerPos;
+        direction = -direction.normalized;
+        transform.position += direction * _collectionSpeed * Time.deltaTime;
+    }
+
+    public void Collect()
+    {
+        _isCollecting = true;
     }
 
    

@@ -141,25 +141,30 @@ public class Enemy : MonoBehaviour
             case 4:
                 {                   
                     transform.Translate(Vector3.right * _horizontalSpeed * Time.deltaTime);
+                    FireLaser();
                     break;
                 }
             case 5:
                 {
                     transform.Translate(Vector3.left * _horizontalSpeed * Time.deltaTime);
+                    FireEnemyMissile();
                     break;
                 }
             case 6:
                 {
+                    if (_player != null)
+                    { 
                     transform.Translate(Vector3.down * _speed * Time.deltaTime);
-                    
-                   
+
+
                     Vector3 targetDir = target.position - transform.position;
                     float angle = Mathf.Atan2(targetDir.y, targetDir.x) * Mathf.Rad2Deg;
                     Quaternion q = Quaternion.AngleAxis(angle + 90, Vector3.forward);
-                    
-                   
+
+
                     transform.GetChild(0).transform.rotation = Quaternion.RotateTowards(transform.rotation, q, _rotateSpeed);
                     FireSmartLaser(q);
+                }
                     break;
                 }
                            

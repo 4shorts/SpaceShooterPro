@@ -18,8 +18,11 @@ public class EnemyWeapons : MonoBehaviour
 
     void Start()
     {
-        target = GameObject.FindWithTag("Player").transform;
-        _rb = GetComponent<Rigidbody2D>();
+        if (target != null)
+        {
+            target = GameObject.FindWithTag("Player").transform;
+            _rb = GetComponent<Rigidbody2D>();
+        }
     }
 
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class Player : MonoBehaviour
 {
@@ -48,7 +49,8 @@ public class Player : MonoBehaviour
     private bool _isSpeedBoostActive = false;
     private bool _isShieldsActive = false;
     private bool _isHeatSeekMissileActive = false;
-    private bool _isAmmoRemoveActive = false;
+    private bool _isCollectorCooldownRoutinePlaying = false;
+    
    
 
 
@@ -74,9 +76,11 @@ public class Player : MonoBehaviour
     private AudioSource _audioSource;
 
     public CameraShake cameraShake;
+
     
-       
-    
+
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -85,6 +89,7 @@ public class Player : MonoBehaviour
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
         _uiManager = GameObject.Find("Canvas").GetComponent<UI_Manager>();
         _audioSource = GetComponent<AudioSource>();
+        
        
         
               
@@ -116,6 +121,8 @@ public class Player : MonoBehaviour
 
         CalculateMovement();
         ThrusterBoost();
+        CollectorActivated();
+        
         
 
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
@@ -134,6 +141,45 @@ public class Player : MonoBehaviour
             _ammoCount = _maxAmmoCount;
         }
 
+    }
+
+    void CollectorActivated()
+    {
+        if (Input.GetKeyDown(KeyCode.C) && _isCollectorCooldownRoutinePlaying == false)
+        {
+            StartCollection();
+        }
+        else if (Input.GetKeyDown(KeyCode.C) && _isCollectorCooldownRoutinePlaying == true)
+        {
+            Debug.Log("Cool down in effect");
+        }
+    }
+
+    void StartCollection()
+    {
+        GameObject[] _powerupList = GameObject.FindGameObjectsWithTag("Powerup");
+
+        if (_powerupList != null)
+        {
+            for (int i = 0; i < _powerupList.Length; i++)
+            {
+                Powerup power = _powerupList[i].GetComponent<Powerup>();
+                power.Collect();
+                StartCoroutine(CollectorCoolDownRoutine(10f));
+            }
+        }
+
+        if (_powerupList.Length == 0)
+        {
+            StartCoroutine(CollectorCoolDownRoutine(5f));
+        }
+    }
+
+    IEnumerator CollectorCoolDownRoutine(float time)
+    {
+        _isCollectorCooldownRoutinePlaying = true;
+        yield return new WaitForSeconds(time);
+        _isCollectorCooldownRoutinePlaying = false;
     }
 
     void ThrusterBoost()
@@ -383,9 +429,7 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(5.0f);
         _isHeatSeekMissileActive = false;
     }
-    
 
-   
 
     public void AddScore(int points)
     {

@@ -10,6 +10,7 @@ TagManager:
   - HeatSeekMissile
   - ThrusterBar
   - EnemyWeapon
+  - Powerup
   layers:
   - Default
   - TransparentFX
