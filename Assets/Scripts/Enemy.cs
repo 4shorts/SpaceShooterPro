@@ -35,6 +35,7 @@ public class Enemy : MonoBehaviour
     private float _rotateSpeed = 200f;
 
     private GameObject _enemyShield;
+    
 
     
 
@@ -51,14 +52,10 @@ public class Enemy : MonoBehaviour
         target = GameObject.FindWithTag("Player").transform;
         _rb = GetComponent<Rigidbody2D>();
         _enemyShield = GameObject.Find("Enemy_Shield");
-        
 
-       
-      
         _frequency = Mathf.PI * Random.Range(0.16f, 0.64f);
         _phase = Random.Range(0f, 2f);
-               
-       
+
        
        
         
@@ -103,6 +100,7 @@ public class Enemy : MonoBehaviour
         {
             case 0:
                 {
+
                     _distanceY = 0;
                     transform.Translate(Vector3.down * _speed * Time.deltaTime);
                     FireLaser();
@@ -190,6 +188,8 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    
+
     void FireLaser()
     {
         if (Time.time > _canFire)
@@ -252,10 +252,9 @@ public class Enemy : MonoBehaviour
             }
 
         }
-       
+
         if (other.tag == "Laser")
-        {
-            
+       
             Destroy(other.gameObject);
             if (_enemyShield == true)
             {
@@ -276,8 +275,7 @@ public class Enemy : MonoBehaviour
                 Destroy(this.gameObject, 2.8f);
             }
 
-        }
-
+        
         if (other.tag == "HeatSeekMissile")
         {
             Destroy (other.gameObject);

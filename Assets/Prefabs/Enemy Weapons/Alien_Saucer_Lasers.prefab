@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7017416961242483910}
   m_Layer: 0
   m_Name: farRight
-  m_TagString: Untagged
+  m_TagString: EnemyWeapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: 6034507608752809963}
   m_Layer: 0
   m_Name: farLeft
-  m_TagString: Untagged
+  m_TagString: EnemyWeapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -306,6 +306,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7507450791288244204}
   - component: {fileID: -1737091296131784404}
+  - component: {fileID: 6091837053385687548}
   m_Layer: 0
   m_Name: Alien_Saucer_Lasers
   m_TagString: Untagged
@@ -358,6 +359,23 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &6091837053385687548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1004893951612842748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4dc8252b56575e4186aafcc6b7f2452, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 8
+  target: {fileID: 0}
+  _rb: {fileID: 0}
+  _rotateSpeed: 200
+  _isMissile: 0
 --- !u!1 &8195911425006254511
 GameObject:
   m_ObjectHideFlags: 0
@@ -373,7 +391,7 @@ GameObject:
   - component: {fileID: 4752261739272299844}
   m_Layer: 0
   m_Name: rightCenter
-  m_TagString: Untagged
+  m_TagString: EnemyWeapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -521,7 +539,7 @@ GameObject:
   - component: {fileID: 8815354506300697514}
   m_Layer: 0
   m_Name: Center
-  m_TagString: Untagged
+  m_TagString: EnemyWeapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -669,7 +687,7 @@ GameObject:
   - component: {fileID: 1087407224212019075}
   m_Layer: 0
   m_Name: leftCenter
-  m_TagString: Untagged
+  m_TagString: EnemyWeapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -103,8 +103,7 @@ MonoBehaviour:
   _spawnTime: 0
   _frequency: 0
   _enemyID: 4
-  _enemyLaserPrefab: {fileID: 1004893951612842748, guid: ae672b6d6a5361d49adf98601e8a9370,
-    type: 3}
+  _enemyLaserPrefab: {fileID: 0}
   _enemyMissilePrefab: {fileID: 0}
   _explostionClip: {fileID: 8300000, guid: a885c043fab7e46438bba03ba9dab6bc, type: 3}
   target: {fileID: 0}
