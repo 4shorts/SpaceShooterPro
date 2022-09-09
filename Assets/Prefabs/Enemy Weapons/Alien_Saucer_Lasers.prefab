@@ -309,7 +309,7 @@ GameObject:
   - component: {fileID: 6091837053385687548}
   m_Layer: 0
   m_Name: Alien_Saucer_Lasers
-  m_TagString: Untagged
+  m_TagString: EnemyWeapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

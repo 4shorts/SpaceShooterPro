@@ -20,6 +20,12 @@ public class UI_Manager : MonoBehaviour
     private Text _ammoText;
     [SerializeField]
     private Slider _thrusterBar;
+    [SerializeField]
+    private Text _enemiesRemaining;
+    [SerializeField]
+    private Text _waveText;
+
+    WaitForSeconds _waveTextTimer = new WaitForSeconds(2f);
    
     
    
@@ -35,7 +41,6 @@ public class UI_Manager : MonoBehaviour
         _restartLevelText.gameObject.SetActive(false);
         _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
         _thrusterBar = GameObject.Find("Thruster_Bar").GetComponent<Slider>();
-
         if (_gameManager == null)
         {
             Debug.LogError("GameManager is NULL.");
@@ -49,6 +54,18 @@ public class UI_Manager : MonoBehaviour
         _scoreText.text = "Score: " + playerScore;
     }
 
+    public void UpdateEnemiesRemaining(int currentEnemies)
+    {
+        _enemiesRemaining.text = currentEnemies.ToString();
+    }
+
+    public IEnumerator WaveText(int _waveNumber)
+    {
+        _waveText.gameObject.SetActive(true);
+        _waveText.text = "Wave " + _waveNumber;
+        yield return _waveTextTimer;
+        _waveText.gameObject.SetActive(false);
+    }
 
     public void UpdateLives(int currentLives)
     {

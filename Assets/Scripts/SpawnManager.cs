@@ -14,81 +14,174 @@ public class SpawnManager : MonoBehaviour
     private GameObject[] _powerups;
     [SerializeField]
     private GameObject[] _enemies;
-    
 
-   
+    private int _remainingEnemies;
 
-   public void StartSpawning()
+    private int _currentWave;
+
+    WaitForSeconds _enemySpawnTimer = new WaitForSeconds(5.0f);
+
+    private UI_Manager _uiManager;
+
+    Coroutine _co;
+
+    private void Start()
     {
-        StartCoroutine(SpawnEnemyRoutine());
-        StartCoroutine(SpawnPowerupRoutine());
-       
-        
+        _uiManager = GameObject.Find("Canvas").GetComponent<UI_Manager>();
+
+        if(_uiManager == null )
+        {
+            Debug.LogError("UI_Manager is NULL in SpawnManager");
+        }
+        _currentWave = 0;
+
     }
 
+    private void Update()
+    {
+        _uiManager.UpdateEnemiesRemaining(_remainingEnemies);
+    }
+
+
+    public void StartSpawning()
+    {
+        _currentWave++;
+        NextWave();
+       
+    }
+
+    void NextWave()
+    {
+        switch(_currentWave)
+        {
+            case 1:
+                StartCoroutine(_uiManager.WaveText(_currentWave));
+                StartCoroutine(SpawningEnemiesRoutine(5));
+                break;
+            case 2:
+                StartCoroutine(_uiManager.WaveText(_currentWave));
+                StartCoroutine(SpawningEnemiesRoutine(10));
+                break;
+            case 3:
+                StartCoroutine(_uiManager.WaveText(_currentWave));
+                StartCoroutine(SpawningEnemiesRoutine(20));
+                break;
+            case 4:
+                StartCoroutine(_uiManager.WaveText(_currentWave));
+                StartCoroutine(SpawningEnemiesRoutine(1));
+                break;
+
+            default:
+                Debug.Log("Invalid wave");
+                break;
+        }
+    }
+
+    IEnumerator SpawningEnemiesRoutine(int _remainingEnemiesToSpawn)
+    {
+        _remainingEnemies = _remainingEnemiesToSpawn;
+        _co = StartCoroutine(SpawnPowerupRoutine());
+
+        while (_stopSpawning == false)
+        {
+            yield return _enemySpawnTimer;
+            SpawnRoutine();
+
+            if (_remainingEnemies < 1)
+            {
+                _remainingEnemies = 0;
+                StopCoroutine(_co);
+                _currentWave++;
+                NextWave();
+                yield break;
+            }
+        }
+    }
+
+    void SpawnRoutine()
+    {
+        float _randomX = Random.Range(-9f, 9f);
+        float _randomY = Random.Range(1f, 5f);
+        int randomEnemy = GenerateEnemyIndex(Random.Range(0, 101));
+
+        Vector3 _enemySpawn = new Vector3(_randomX, 7f, 0f);
+        Vector3 _enemyNewMovementSpawn = new Vector3(_randomX, 7f, 0f);
+        Vector3 _agressiveEnemySpawn = new Vector3(_randomX, 7f, 0f);
+        Vector3 _shieldEnemySpawn = new Vector3(_randomX, 7f, 0f);
+        Vector3 _alienSaucerSpawn = new Vector3(-11, _randomY, 0f);
+        Vector3 _alienSaucer2Spawn = new Vector3(11, _randomY, 0f);
+        Vector3 _smartEnemySpawn = new Vector3(_randomX, 7f, 0f);
+
+        switch(randomEnemy)
+        {
+            case 0:
+                GameObject _newEnemy = Instantiate(_enemies[0], _enemySpawn, Quaternion.identity);
+                _newEnemy.transform.parent = _enemyContainer.transform;
+                break;
+            case 1:
+                GameObject _newEnemyNewMovement = Instantiate(_enemies[1], _enemyNewMovementSpawn, Quaternion.identity);
+                _newEnemyNewMovement.transform.parent = _enemyContainer.transform;
+                break;
+            case 2:
+                GameObject _newAgressiveEnemy = Instantiate(_enemies[0], _agressiveEnemySpawn, Quaternion.identity);
+                _newAgressiveEnemy.transform.parent = _enemyContainer.transform;
+                break;
+            case 3:
+                GameObject _newShieldEnemy = Instantiate(_enemies[0], _shieldEnemySpawn, Quaternion.identity);
+                _newShieldEnemy.transform.parent = _enemyContainer.transform;
+                break;
+            case 4:
+                GameObject _newAlienSaucer = Instantiate(_enemies[0], _alienSaucerSpawn, Quaternion.identity);
+                _newAlienSaucer.transform.parent = _enemyContainer.transform;
+                break;
+            case 5:
+                GameObject _newAlienSaucer2 = Instantiate(_enemies[0], _alienSaucer2Spawn, Quaternion.identity);
+                _newAlienSaucer2.transform.parent = _enemyContainer.transform;
+                break;
+            case 6:
+                GameObject _newSmartEnemy = Instantiate(_enemies[0], _smartEnemySpawn, Quaternion.identity);
+                _newSmartEnemy.transform.parent = _enemyContainer.transform;
+                break;
+            default:
+                break;
+
+        }
+        _remainingEnemies--;
+
+    }
     int GenerateEnemyIndex(int random)
     {
         if (random >= 0 && random < 30)
         {
-            return 0;
+            return 0; //enemy
         }
         else if (random >= 30 && random < 55)
         {
-            return 1;
+            return 1; //enemy new movement
         }
         else if (random >= 55 && random < 65)
         {
-            return 2;
+            return 2; //agressive enemy
         }
         else if (random >= 65 && random < 85)
         {
-            return 3;
+            return 3; //shield enemy
         }
         else if (random >= 85 && random < 90)
         {
-            return 4;
+            return 4; //alien saucer
         }
         else if (random >= 90 && random < 95)
         {
-            return 5;
+            return 5; //alien saucer 2
         }
         else
         {
-            return 6;
+            return 6; //smart enemy
         }
     }
 
-    IEnumerator SpawnEnemyRoutine()
-    {
-        yield return new WaitForSeconds(3.0f);
-        while(_stopSpawning == false)
-        {
-
-            int randomEnemy = GenerateEnemyIndex(Random.Range(0, 101));
-     
-            if (_enemies[4])
-            {
-                Vector3 posToSpawn = new Vector3(-10f, Random.Range(3f, 4f), 0);
-                GameObject newEnemy = Instantiate(_enemies[randomEnemy], posToSpawn, Quaternion.identity);
-                newEnemy.transform.parent = _enemyContainer.transform;
-            }
-            else if (_enemies[5])
-            {
-                Vector3 posToSpawn = new Vector3(11f, Random.Range(2.5f, 4.5f), 0);
-                GameObject newEnemy = Instantiate(_enemies[randomEnemy], posToSpawn, Quaternion.identity);
-                newEnemy.transform.parent = _enemyContainer.transform;
-            }
-            else
-            {
-                Vector3 posToSpawn = new Vector3(Random.Range(-9f, 9f), 7, 0);
-                GameObject newEnemy = Instantiate(_enemies[randomEnemy], posToSpawn, Quaternion.identity);
-                newEnemy.transform.parent = _enemyContainer.transform;
-            }
-            
-            yield return new WaitForSeconds(5.0f);
-        }
-            
-    }
+   
     int GeneratePowerupIndex(int random)
     {
         if (random >= 30 && random < 50)
