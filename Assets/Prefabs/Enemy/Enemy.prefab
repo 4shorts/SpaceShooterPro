@@ -59,6 +59,7 @@ MonoBehaviour:
   target: {fileID: 0}
   _rb: {fileID: 0}
   _rotateSpeed: 200
+  _avoidSpeed: 2
 --- !u!212 &586042394453793028
 SpriteRenderer:
   m_ObjectHideFlags: 0

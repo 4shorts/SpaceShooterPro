@@ -123,23 +123,23 @@ public class SpawnManager : MonoBehaviour
                 _newEnemyNewMovement.transform.parent = _enemyContainer.transform;
                 break;
             case 2:
-                GameObject _newAgressiveEnemy = Instantiate(_enemies[0], _agressiveEnemySpawn, Quaternion.identity);
+                GameObject _newAgressiveEnemy = Instantiate(_enemies[2], _agressiveEnemySpawn, Quaternion.identity);
                 _newAgressiveEnemy.transform.parent = _enemyContainer.transform;
                 break;
             case 3:
-                GameObject _newShieldEnemy = Instantiate(_enemies[0], _shieldEnemySpawn, Quaternion.identity);
+                GameObject _newShieldEnemy = Instantiate(_enemies[3], _shieldEnemySpawn, Quaternion.identity);
                 _newShieldEnemy.transform.parent = _enemyContainer.transform;
                 break;
             case 4:
-                GameObject _newAlienSaucer = Instantiate(_enemies[0], _alienSaucerSpawn, Quaternion.identity);
+                GameObject _newAlienSaucer = Instantiate(_enemies[4], _alienSaucerSpawn, Quaternion.identity);
                 _newAlienSaucer.transform.parent = _enemyContainer.transform;
                 break;
             case 5:
-                GameObject _newAlienSaucer2 = Instantiate(_enemies[0], _alienSaucer2Spawn, Quaternion.identity);
+                GameObject _newAlienSaucer2 = Instantiate(_enemies[5], _alienSaucer2Spawn, Quaternion.identity);
                 _newAlienSaucer2.transform.parent = _enemyContainer.transform;
                 break;
             case 6:
-                GameObject _newSmartEnemy = Instantiate(_enemies[0], _smartEnemySpawn, Quaternion.identity);
+                GameObject _newSmartEnemy = Instantiate(_enemies[6], _smartEnemySpawn, Quaternion.identity);
                 _newSmartEnemy.transform.parent = _enemyContainer.transform;
                 break;
             default:

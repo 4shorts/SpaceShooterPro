@@ -36,6 +36,13 @@ public class Enemy : MonoBehaviour
 
     private GameObject _enemyShield;
     
+    [SerializeField]
+    private float LaserCastRadius = .5f;
+    [SerializeField]
+    private float LaserCastDistance = 8.0f;
+
+     private float DodgeRate = 2.0f;
+    
 
     
 
@@ -55,6 +62,8 @@ public class Enemy : MonoBehaviour
 
         _frequency = Mathf.PI * Random.Range(0.16f, 0.64f);
         _phase = Random.Range(0f, 2f);
+       
+       
 
        
        
@@ -88,8 +97,6 @@ public class Enemy : MonoBehaviour
         
         CalculateMovement();
         
-        
-      
 
        
     }
@@ -103,6 +110,7 @@ public class Enemy : MonoBehaviour
 
                     _distanceY = 0;
                     transform.Translate(Vector3.down * _speed * Time.deltaTime);
+                    AvoidLaser();
                     FireLaser();
                     break;
                 }
@@ -167,9 +175,6 @@ public class Enemy : MonoBehaviour
                 }
                            
         }
-       
-       
-       
         
 
         if (transform.position.y < -6f)
@@ -188,7 +193,8 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    
+
+
 
     void FireLaser()
     {
@@ -201,6 +207,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    
     void FireEnemyMissile()
     {
         if (Time.time > _canFire)
@@ -220,6 +227,23 @@ public class Enemy : MonoBehaviour
             _canFire = Time.time + _fireRate;
             Instantiate(_enemyLaserPrefab, transform.position, fireAngle);
 
+        }
+    }
+    void AvoidLaser()
+    {
+        RaycastHit2D LaserHit = Physics2D.CircleCast(transform.position, LaserCastRadius, Vector2.down, LaserCastDistance, LayerMask.GetMask("laser"));
+
+        if (LaserHit.collider != null)
+        {
+            if (LaserHit.collider.CompareTag("Laser"))
+            {
+                transform.position = new Vector3(transform.position.x - DodgeRate, transform.position.y, transform.position.z);
+                DodgeRate -= .3f;
+                if (DodgeRate <= 0f)
+                {
+                    DodgeRate = .05f;
+                }
+            }
         }
     }
 
@@ -254,7 +278,8 @@ public class Enemy : MonoBehaviour
         }
 
         if (other.tag == "Laser")
-       
+
+
             Destroy(other.gameObject);
             if (_enemyShield == true)
             {
