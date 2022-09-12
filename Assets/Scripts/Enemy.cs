@@ -278,7 +278,7 @@ public class Enemy : MonoBehaviour
         }
 
         if (other.tag == "Laser")
-
+        {
 
             Destroy(other.gameObject);
             if (_enemyShield == true)
@@ -299,7 +299,7 @@ public class Enemy : MonoBehaviour
                 Destroy(GetComponent<Collider2D>());
                 Destroy(this.gameObject, 2.8f);
             }
-
+        }
         
         if (other.tag == "HeatSeekMissile")
         {
@@ -323,7 +323,31 @@ public class Enemy : MonoBehaviour
                 Destroy(this.gameObject, 2.8f);
             }
         }
-      
+
+        if (other.tag == "Mine")
+        {
+
+            Destroy(other.gameObject);
+            if (_enemyShield == true)
+            {
+                _enemyShield.SetActive(false);
+                Destroy(_enemyShield);
+            }
+            else
+            {
+                if (_player != null)
+                {
+                    _player.AddScore(10);
+                }
+                _anim.SetTrigger("OnEnemyDeath");
+                _speed = 0f;
+                _audioSource.Play();
+
+                Destroy(GetComponent<Collider2D>());
+                Destroy(this.gameObject, 2.8f);
+            }
+        }
+
     }
    
 }

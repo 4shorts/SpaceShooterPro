@@ -36,6 +36,8 @@ public class Player : MonoBehaviour
     private int _maxAmmoCount = 50;
     [SerializeField]
     private int _noAmmoCount = 0;
+    [SerializeField]
+    private int _mineCount = 0;
     
    
 
@@ -50,9 +52,9 @@ public class Player : MonoBehaviour
     private bool _isShieldsActive = false;
     private bool _isHeatSeekMissileActive = false;
     private bool _isCollectorCooldownRoutinePlaying = false;
-    
-   
 
+    [SerializeField]
+    private GameObject _minePrefab;
 
     [SerializeField]
     private int _shieldHits = 0;
@@ -135,6 +137,11 @@ public class Player : MonoBehaviour
             FireLaser();
                      
         }  
+
+        if (Input.GetKeyDown(KeyCode.M) && _mineCount > 0)
+        {
+            Instantiate(_minePrefab, transform.position, Quaternion.identity);
+        }
 
         if (_ammoCount > 50)
         {
@@ -278,6 +285,18 @@ public class Player : MonoBehaviour
         _ammoCount += bullets;
         _uiManager.UpdateAmmoCount(_ammoCount);
         
+    }
+
+    public void MineRefill()
+    {
+        _mineCount += 3;
+        _uiManager.UpdateMineCount(_mineCount);
+    }
+
+    public void MineCount(int mines)
+    {
+        _mineCount += mines;
+        _uiManager.UpdateMineCount(_mineCount);
     }
 
     public void AmmoRefill()

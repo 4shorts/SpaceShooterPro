@@ -113,6 +113,10 @@ public class Powerup : MonoBehaviour
                         player.AmmoRemove();
 
                         break;
+                    case 7:
+                        player.MineRefill();
+
+                        break;
                     default:
                         Debug.Log("default");
                         break;

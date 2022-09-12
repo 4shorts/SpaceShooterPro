@@ -24,7 +24,8 @@ public class UI_Manager : MonoBehaviour
     private Text _enemiesRemaining;
     [SerializeField]
     private Text _waveText;
-
+    [SerializeField]
+    private Text _mineText;
     WaitForSeconds _waveTextTimer = new WaitForSeconds(2f);
    
     
@@ -81,6 +82,11 @@ public class UI_Manager : MonoBehaviour
     public void UpdateAmmoCount(int bulletsLeft)
     {
         _ammoText.text = "Shots: " + bulletsLeft + "/50";
+    }
+
+    public void UpdateMineCount(int minesLeft)
+    {
+        _mineText.text = "Mines: " + minesLeft;
     }
 
 

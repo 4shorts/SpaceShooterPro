@@ -186,31 +186,35 @@ public class SpawnManager : MonoBehaviour
     {
         if (random >= 30 && random < 50)
         {
-            return 0;
+            return 0; //triple_Shot
         }
         else if (random >= 50 && random < 60)
         {
-            return 1;
+            return 1; //Speed
         }
         else if (random >= 60 && random < 75)
         {
-            return 2;
+            return 2; //Shield
         }
         else if (random >= 0 && random < 30)
         {
-            return 3;
+            return 3; //ammo
         }
         else if (random >= 75 && random < 80)
         {
-            return 4;
+            return 4; //healthCollectable
         }
-        else if (random >= 80 && random < 90)
+        else if (random >= 80 && random < 85)
         {
-            return 5;
+            return 5; //heatSeekMissile
+        }
+        else if (random >=85 && random < 90)
+        {
+            return 7; //minepowerup
         }
         else
         {
-            return 6;
+            return 6; //NegativeAmmo
         }
     }
 
