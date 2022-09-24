@@ -1608,8 +1608,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -300, y: -199.97}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: -329.62, y: -189.8}
+  m_SizeDelta: {x: 100.75641, y: 25.091854}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &992387262
 GameObject:
@@ -2132,7 +2132,6 @@ MonoBehaviour:
   _ammoCount: 15
   _noAmmo: {fileID: 8300000, guid: 1aa060f778243d94c9d9518b65c0d44b, type: 3}
   _maxAmmoCount: 50
-  _noAmmoCount: 0
   _mineCount: 0
   _lives: 3
   _minePrefab: {fileID: 199610675793428145, guid: a8a4fcff16067dd4ba11b471a904778a,
@@ -2587,8 +2586,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 77.78, y: 40.51}
-  m_SizeDelta: {x: 115.55786, y: 48.97531}
+  m_AnchoredPosition: {x: 77.779, y: 57.41}
+  m_SizeDelta: {x: 115.55893, y: 34.81184}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1726182392
 MonoBehaviour:

@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6523561082008101789
 Transform:
   m_ObjectHideFlags: 0
@@ -97,7 +97,6 @@ MonoBehaviour:
   _speed: 8
   target: {fileID: 0}
   _rb: {fileID: 0}
-  _rotateSpeed: 200
   _isMissile: 0
   _explosionPrefab: {fileID: 9105120758304589183, guid: 7797705ad701c4741bbbbc30f34ec89e,
     type: 3}
@@ -168,30 +167,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Laser_Left
       objectReference: {fileID: 0}
-    - target: {fileID: 6470472218735852540, guid: 93e0fb8feb15aea429d0a0b368efd017,
-        type: 3}
-      propertyPath: m_TagString
-      value: EnemyWeapon
-      objectReference: {fileID: 0}
-    - target: {fileID: 7440762159186752909, guid: 93e0fb8feb15aea429d0a0b368efd017,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 0.09019608
-      objectReference: {fileID: 0}
-    - target: {fileID: 7440762159186752909, guid: 93e0fb8feb15aea429d0a0b368efd017,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0.9647059
-      objectReference: {fileID: 0}
-    - target: {fileID: 7440762159186752909, guid: 93e0fb8feb15aea429d0a0b368efd017,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 0.99215686
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 2041450268964986226, guid: 93e0fb8feb15aea429d0a0b368efd017, type: 3}
-    - {fileID: 8816424826124096110, guid: 93e0fb8feb15aea429d0a0b368efd017, type: 3}
-    - {fileID: 1050276150849853978, guid: 93e0fb8feb15aea429d0a0b368efd017, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 93e0fb8feb15aea429d0a0b368efd017, type: 3}
 --- !u!4 &1690879079200051537 stripped
 Transform:

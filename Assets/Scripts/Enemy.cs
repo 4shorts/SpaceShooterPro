@@ -302,8 +302,8 @@ public class Enemy : MonoBehaviour
                     _anim.SetTrigger("OnEnemyDeath");
                 }
                 _speed = 0f;
+                _horizontalSpeed = 0f;
                 _audioSource.Play();
-
                 Destroy(GetComponent<Collider2D>());
                 Destroy(this.gameObject, 2.8f);
             }
@@ -345,8 +345,16 @@ public class Enemy : MonoBehaviour
                     _anim.SetTrigger("OnEnemyDeath");
                 }
                 _speed = 0f;
+                _horizontalSpeed= 0f;
+                if (_enemyLaserPrefab != null)
+                {
+                    _enemyLaserPrefab.SetActive(false);
+                }
+                if (_enemyMissilePrefab != null)
+                {
+                    _enemyMissilePrefab.SetActive(false);
+                }
                 _audioSource.Play();
-
                 Destroy(GetComponent<Collider2D>());
                 Destroy(this.gameObject, 2.8f);
             }
@@ -383,8 +391,8 @@ public class Enemy : MonoBehaviour
                     _anim.SetTrigger("OnEnemyDeath");
                 }
                 _speed = 0f;
+                _horizontalSpeed = 0f;
                 _audioSource.Play();
-
                 Destroy(GetComponent<Collider2D>());
                 Destroy(this.gameObject, 2.8f);
             }
@@ -422,8 +430,8 @@ public class Enemy : MonoBehaviour
                     _anim.SetTrigger("OnEnemyDeath");
                 }
                 _speed = 0f;
+                _horizontalSpeed= 0f;
                 _audioSource.Play();
-
                 Destroy(GetComponent<Collider2D>());
                 Destroy(this.gameObject, 2.8f);
             }

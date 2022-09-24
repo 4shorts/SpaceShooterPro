@@ -25,7 +25,7 @@ public class SpawnManager : MonoBehaviour
 
     private int _currentBoss;
 
-    WaitForSeconds _enemySpawnTimer = new WaitForSeconds(5.0f);
+    WaitForSeconds _enemySpawnTimer = new WaitForSeconds(8.0f);
 
     private UI_Manager _uiManager;
 
