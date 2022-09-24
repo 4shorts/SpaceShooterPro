@@ -99,6 +99,8 @@ MonoBehaviour:
   _rb: {fileID: 0}
   _rotateSpeed: 200
   _isMissile: 0
+  _explosionPrefab: {fileID: 9105120758304589183, guid: 7797705ad701c4741bbbbc30f34ec89e,
+    type: 3}
 --- !u!1001 &6523561082394978025
 PrefabInstance:
   m_ObjectHideFlags: 0

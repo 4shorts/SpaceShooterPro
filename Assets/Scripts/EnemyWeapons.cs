@@ -13,16 +13,17 @@ public class EnemyWeapons : MonoBehaviour
     private float _rotateSpeed = 200f;
     [SerializeField]
     private bool _isMissile = false;
+    [SerializeField]
+    private GameObject _explosionPrefab;
     
 
 
     void Start()
     {
-        if (target != null)
-        {
-            target = GameObject.FindWithTag("Player").transform;
+        
+            target = GameObject.Find("Player").GetComponent<Player>().transform;
             _rb = GetComponent<Rigidbody2D>();
-        }
+        
     }
 
 
@@ -62,31 +63,14 @@ public class EnemyWeapons : MonoBehaviour
     {
         if (target != null)
         {
-
-            Vector2 direction = (Vector2)target.position - _rb.position;
-
-            direction.Normalize();
-
-            float rotateAmount = Vector3.Cross(direction, transform.up).z;
-
-            _rb.angularVelocity = -rotateAmount * _rotateSpeed;
-
-            Vector3.Cross(direction, transform.up);
-
-            _rb.velocity = transform.up * _speed;
-
-
-            if (transform.position.y > 8f)
-            {
-                Destroy(this.gameObject);
-            }
-            if (transform.position.y < -8f)
-            {
-                Destroy(this.gameObject);
-            }
+            _rb.transform.position = Vector2.MoveTowards(_rb.transform.position, target.position, _speed * Time.deltaTime);
+            transform.up = target.position - _rb.transform.position;
+              
         }
 
     }
+
+   
 
     
 
@@ -106,7 +90,8 @@ public class EnemyWeapons : MonoBehaviour
 
         if (other.tag == "Powerup")
         {
-            Destroy(other.gameObject);
+            Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
+            Destroy(other.gameObject, .1f);
             Destroy(this.gameObject);
         }
         

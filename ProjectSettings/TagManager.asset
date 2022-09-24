@@ -11,6 +11,9 @@ TagManager:
   - ThrusterBar
   - EnemyWeapon
   - Powerup
+  - Mine
+  - Boss
+  - BossHealthBar
   layers:
   - Default
   - TransparentFX

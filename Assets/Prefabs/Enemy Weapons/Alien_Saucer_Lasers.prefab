@@ -101,6 +101,7 @@ MonoBehaviour:
   _rb: {fileID: 0}
   _rotateSpeed: 200
   _isMissile: 0
+  _explosionPrefab: {fileID: 0}
 --- !u!61 &7443031817707933736
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -249,6 +250,7 @@ MonoBehaviour:
   _rb: {fileID: 0}
   _rotateSpeed: 200
   _isMissile: 0
+  _explosionPrefab: {fileID: 0}
 --- !u!61 &2115389381768629766
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -376,6 +378,8 @@ MonoBehaviour:
   _rb: {fileID: 0}
   _rotateSpeed: 200
   _isMissile: 0
+  _explosionPrefab: {fileID: 9105120758304589183, guid: 7797705ad701c4741bbbbc30f34ec89e,
+    type: 3}
 --- !u!1 &8195911425006254511
 GameObject:
   m_ObjectHideFlags: 0
@@ -477,6 +481,7 @@ MonoBehaviour:
   _rb: {fileID: 0}
   _rotateSpeed: 200
   _isMissile: 0
+  _explosionPrefab: {fileID: 0}
 --- !u!61 &3393760809132277442
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -625,6 +630,7 @@ MonoBehaviour:
   _rb: {fileID: 0}
   _rotateSpeed: 200
   _isMissile: 0
+  _explosionPrefab: {fileID: 0}
 --- !u!61 &5296701630051190789
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -773,6 +779,7 @@ MonoBehaviour:
   _rb: {fileID: 0}
   _rotateSpeed: 200
   _isMissile: 0
+  _explosionPrefab: {fileID: 0}
 --- !u!61 &7304298589962449694
 BoxCollider2D:
   m_ObjectHideFlags: 0

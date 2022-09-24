@@ -26,6 +26,10 @@ public class UI_Manager : MonoBehaviour
     private Text _waveText;
     [SerializeField]
     private Text _mineText;
+    [SerializeField]
+    private Slider _bossHealthBar;
+    [SerializeField]
+    private Text _youAreTheWinnerText;
     WaitForSeconds _waveTextTimer = new WaitForSeconds(2f);
    
     
@@ -42,18 +46,21 @@ public class UI_Manager : MonoBehaviour
         _restartLevelText.gameObject.SetActive(false);
         _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
         _thrusterBar = GameObject.Find("Thruster_Bar").GetComponent<Slider>();
+        _bossHealthBar = GameObject.Find("Boss_Health").GetComponent<Slider>();
+        _bossHealthBar.gameObject.SetActive(false);
+        _youAreTheWinnerText.gameObject.SetActive(false);
         if (_gameManager == null)
         {
             Debug.LogError("GameManager is NULL.");
         }
     }
 
-    // Update is called once per frame
    
     public void UpdateScore(int playerScore)
     {
         _scoreText.text = "Score: " + playerScore;
     }
+    
 
     public void UpdateEnemiesRemaining(int currentEnemies)
     {
@@ -62,11 +69,22 @@ public class UI_Manager : MonoBehaviour
 
     public IEnumerator WaveText(int _waveNumber)
     {
-        _waveText.gameObject.SetActive(true);
-        _waveText.text = "Wave " + _waveNumber;
-        yield return _waveTextTimer;
-        _waveText.gameObject.SetActive(false);
+        if (_waveNumber == 4)
+        {
+            _waveText.gameObject.SetActive(true);
+            _waveText.text = "Final Boss";
+            yield return _waveTextTimer;
+            _waveText.gameObject.SetActive(false);
+        }
+        else
+        {
+            _waveText.gameObject.SetActive(true);
+            _waveText.text = "Wave " + _waveNumber;
+            yield return _waveTextTimer;
+            _waveText.gameObject.SetActive(false);
+        }
     }
+
 
     public void UpdateLives(int currentLives)
     {
@@ -88,14 +106,38 @@ public class UI_Manager : MonoBehaviour
     {
         _mineText.text = "Mines: " + minesLeft;
     }
-
+    
+    public void UpdateBossHealth(int health)
+    {
+        if (_bossHealthBar != null)
+        {
+            _bossHealthBar.value = health;
+        }
+    }
 
     public void UpdateThrusterBar(float fuel)
     {
         _thrusterBar.value = fuel;
     }
 
+    public void YouAreTheWinnerSequence()
+    {
+        _gameManager.GameOver();
+        _youAreTheWinnerText.gameObject.SetActive(true);
+        _restartLevelText.gameObject.SetActive(true);
+        StartCoroutine(YouAreTheWinnerFlicker());
+    }
 
+    private IEnumerator YouAreTheWinnerFlicker()
+    {
+        while (true)
+        {
+            _youAreTheWinnerText.text = "You Are The Winner";
+            yield return new WaitForSeconds(0.25f);
+            _gameOverText.text = " ";
+            yield return new WaitForSeconds(0.25f);
+        }
+    }
     
      
     

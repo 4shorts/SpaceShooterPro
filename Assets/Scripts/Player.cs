@@ -141,12 +141,12 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.M) && _mineCount > 0)
         {
             Instantiate(_minePrefab, transform.position, Quaternion.identity);
+            _mineCount--;
+            _uiManager.UpdateMineCount(_mineCount);
+
         }
 
-        if (_ammoCount > 50)
-        {
-            _ammoCount = _maxAmmoCount;
-        }
+        
 
     }
 
@@ -300,12 +300,14 @@ public class Player : MonoBehaviour
     }
 
     public void AmmoRefill()
-    {
-       
+    { 
         
-        _ammoCount += 15;
-        
-        _uiManager.UpdateAmmoCount(_ammoCount);        
+        _ammoCount += 15;  
+        if (_ammoCount > 50)
+        {
+            _ammoCount = _maxAmmoCount;
+        }
+        _uiManager.UpdateAmmoCount(_ammoCount);
     }
 
     public void AmmoRemove()

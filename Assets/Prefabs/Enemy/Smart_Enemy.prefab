@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 8790821966644334651}
   - component: {fileID: 671118358139185846}
   - component: {fileID: 4050657035711555342}
-  - component: {fileID: 1944213257554596339}
   - component: {fileID: 2055037253653069257}
   m_Layer: 0
   m_Name: Smart_Enemy
@@ -54,12 +53,17 @@ MonoBehaviour:
   _spawnTime: 0
   _frequency: 0
   _enemyID: 6
-  _enemyLaserPrefab: {fileID: 0}
+  _enemyLaserPrefab: {fileID: 6523561082008101788, guid: 24408a30a8f85b2498230d39f0825ab8,
+    type: 3}
   _enemyMissilePrefab: {fileID: 0}
   _explostionClip: {fileID: 8300000, guid: a885c043fab7e46438bba03ba9dab6bc, type: 3}
   target: {fileID: 0}
   _rb: {fileID: 0}
   _rotateSpeed: 200
+  _explosionPrefab: {fileID: 9105120758304589183, guid: 7797705ad701c4741bbbbc30f34ec89e,
+    type: 3}
+  LaserCastRadius: 0.5
+  LaserCastDistance: 8
 --- !u!212 &8790821966644334651
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -157,25 +161,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.012287, y: 2.3677874}
   m_EdgeRadius: 0
---- !u!95 &1944213257554596339
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5937451682088669017}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a131af139f4ee6c40bfb70cf850de9bc, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!82 &2055037253653069257
 AudioSource:
   m_ObjectHideFlags: 0
@@ -284,6 +269,7 @@ GameObject:
   - component: {fileID: 6892521188999462081}
   - component: {fileID: 8786890926902390712}
   - component: {fileID: 6268715899008416118}
+  - component: {fileID: 8100776499088546417}
   m_Layer: 0
   m_Name: Smart_Enemy_Sprite
   m_TagString: Enemy
@@ -368,7 +354,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8606316715167081940}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: a131af139f4ee6c40bfb70cf850de9bc, type: 2}
   m_CullingMode: 0
@@ -387,3 +373,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8606316715167081940}
   m_CullTransparentMesh: 0
+--- !u!61 &8100776499088546417
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8606316715167081940}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 5.12, y: 5.12}
+    newSize: {x: 5.12, y: 5.12}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 5.12, y: 5.12}
+  m_EdgeRadius: 0

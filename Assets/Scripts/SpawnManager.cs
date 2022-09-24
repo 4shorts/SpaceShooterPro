@@ -9,15 +9,21 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private GameObject _enemyContainer;
     [SerializeField]
+    private GameObject _bossHealthBar;
+    [SerializeField]
     private bool _stopSpawning = false;
     [SerializeField]
     private GameObject[] _powerups;
     [SerializeField]
     private GameObject[] _enemies;
+    [SerializeField]
+    private GameObject[] _bosses;
 
     private int _remainingEnemies;
 
     private int _currentWave;
+
+    private int _currentBoss;
 
     WaitForSeconds _enemySpawnTimer = new WaitForSeconds(5.0f);
 
@@ -34,6 +40,8 @@ public class SpawnManager : MonoBehaviour
             Debug.LogError("UI_Manager is NULL in SpawnManager");
         }
         _currentWave = 0;
+        _currentBoss = 0;   
+        _bossHealthBar.SetActive(false);
 
     }
 
@@ -56,19 +64,19 @@ public class SpawnManager : MonoBehaviour
         {
             case 1:
                 StartCoroutine(_uiManager.WaveText(_currentWave));
-                StartCoroutine(SpawningEnemiesRoutine(5));
+                StartCoroutine(SpawningEnemiesRoutine(1));
                 break;
             case 2:
                 StartCoroutine(_uiManager.WaveText(_currentWave));
-                StartCoroutine(SpawningEnemiesRoutine(10));
+                StartCoroutine(SpawningEnemiesRoutine(1));
                 break;
             case 3:
                 StartCoroutine(_uiManager.WaveText(_currentWave));
-                StartCoroutine(SpawningEnemiesRoutine(20));
+                StartCoroutine(SpawningEnemiesRoutine(1));
                 break;
             case 4:
                 StartCoroutine(_uiManager.WaveText(_currentWave));
-                StartCoroutine(SpawningEnemiesRoutine(1));
+                StartCoroutine(SpawningBossRoutine());
                 break;
 
             default:
@@ -96,6 +104,52 @@ public class SpawnManager : MonoBehaviour
                 yield break;
             }
         }
+    }
+
+    IEnumerator SpawningBossRoutine()
+    {
+        _co = StartCoroutine(SpawnPowerupRoutine());
+
+
+        yield return _enemySpawnTimer;
+        SpawnBosses();
+        
+
+    }
+
+    public void SpawnBosses()
+    {
+        _bossHealthBar.SetActive(true);
+        Vector3 _bossSpawn = new Vector3(0, 20f, 0);
+        Vector3 _leftSideBossSpawn = new Vector3(-20f, 5f, 0);
+        Vector3 _rightSideBossSpawn = new Vector3(20f, 5f, 0);
+        Vector3 _finalBossSpawn = new Vector3(0, 20f, 0);
+
+        switch(_currentBoss)
+        {
+            case 0:
+                GameObject _newBoss = Instantiate(_bosses[0], _bossSpawn, Quaternion.identity);
+                _newBoss.transform.parent = _enemyContainer.transform;
+                break;
+            case 1:
+                GameObject _newLeftSideBossSpawn = Instantiate(_bosses[1], _leftSideBossSpawn, _bosses[1].transform.rotation);
+                _newLeftSideBossSpawn.transform.parent = _enemyContainer.transform;
+                
+                break;
+            case 2:
+                GameObject _newRightSideBoss = Instantiate(_bosses[2], _rightSideBossSpawn, _bosses[2].transform.rotation);
+                _newRightSideBoss.transform.parent = _enemyContainer.transform;
+                
+                break;
+            case 3:
+                GameObject _newFinalBoss = Instantiate(_bosses[3], _finalBossSpawn, Quaternion.identity);
+                _newFinalBoss.transform.parent = _enemyContainer.transform;
+                break;
+            default:
+                
+                break;
+        }
+        _currentBoss++;
     }
 
     void SpawnRoutine()

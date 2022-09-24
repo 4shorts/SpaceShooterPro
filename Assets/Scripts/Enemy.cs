@@ -13,15 +13,18 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private float _frequency;
     private float _phase;
+
     [SerializeField]
     private int _enemyID = 0;
     private float _distanceY;
+
     [SerializeField]
     private GameObject _enemyLaserPrefab;
     private Player _player;
     [SerializeField]
     private GameObject _enemyMissilePrefab;
     private Animator _anim;
+
     [SerializeField]
     private AudioClip _explostionClip;
     private AudioSource _audioSource;
@@ -35,6 +38,8 @@ public class Enemy : MonoBehaviour
     private float _rotateSpeed = 200f;
 
     private GameObject _enemyShield;
+    [SerializeField]
+    private GameObject _explosionPrefab;
     
     [SerializeField]
     private float LaserCastRadius = .5f;
@@ -77,7 +82,8 @@ public class Enemy : MonoBehaviour
         
         if (_anim == null)
         {
-            Debug.LogError("The Animator is NULL");
+            //Debug.LogError("The Animator is NULL");
+            _anim = transform.GetChild(0).GetComponent<Animator>();
         }
         if (_audioSource == null)
         {
@@ -215,7 +221,14 @@ public class Enemy : MonoBehaviour
             _fireRate = Random.Range(3f, 7f);
             _canFire = Time.time + _fireRate;
             Instantiate(_enemyMissilePrefab, transform.position, Quaternion.identity);
+            StartCoroutine(MissileTimer());
         }
+    }
+
+    IEnumerator MissileTimer()
+    {
+        yield return new WaitForSeconds(5f);
+        Destroy(this.gameObject);
     }
 
     void FireSmartLaser(Quaternion fireAngle)
@@ -267,13 +280,34 @@ public class Enemy : MonoBehaviour
                 Destroy(_enemyShield);
             }
             else
-            { 
+            {
+                if (_player != null)
+                {
+                    _player.AddScore(10);
+                }
+                if (_enemyID == 2)
+                {
+                    _anim.SetTrigger("BlowUpEnemy");
+                }
+                else if (_enemyID == 4)
+                {
+                    _anim.SetTrigger("BlowUpEnemy");
+                }
+                else if (_enemyID == 5)
+                {
+                    _anim.SetTrigger("BlowUpEnemy");
+                }
+                else
+                {
+                    _anim.SetTrigger("OnEnemyDeath");
+                }
+                _speed = 0f;
+                _audioSource.Play();
 
-            _anim.SetTrigger("OnEnemyDeath");
-            _speed = 0f;
-            _audioSource.Play();
-            Destroy(this.gameObject, 2.8f);
+                Destroy(GetComponent<Collider2D>());
+                Destroy(this.gameObject, 2.8f);
             }
+
 
         }
 
@@ -286,13 +320,30 @@ public class Enemy : MonoBehaviour
                 _enemyShield.SetActive(false);
                 Destroy(_enemyShield);
             }
+            
             else
             {
                 if (_player != null)
                 {
                     _player.AddScore(10);
                 }
-                _anim.SetTrigger("OnEnemyDeath");
+                if (_enemyID == 2)
+                {
+                    _anim.SetTrigger("BlowUpEnemy");
+                }
+                else if (_enemyID == 4)
+                {
+                    _anim.SetTrigger("BlowUpEnemy");
+                }
+                else if (_enemyID == 5)
+                {
+                    _anim.SetTrigger("BlowUpEnemy");
+                }
+                else
+                {
+                    Debug.Log("enemy explosion");
+                    _anim.SetTrigger("OnEnemyDeath");
+                }
                 _speed = 0f;
                 _audioSource.Play();
 
@@ -315,7 +366,22 @@ public class Enemy : MonoBehaviour
                 {
                     _player.AddScore(10);
                 }
-                _anim.SetTrigger("OnEnemyDeath");
+                if (_enemyID == 2)
+                {
+                    _anim.SetTrigger("BlowUpEnemy");
+                }
+                else if (_enemyID == 4)
+                {
+                    _anim.SetTrigger("BlowUpEnemy");
+                }
+                else if (_enemyID == 5)
+                {
+                    _anim.SetTrigger("BlowUpEnemy");
+                }
+                else
+                {
+                    _anim.SetTrigger("OnEnemyDeath");
+                }
                 _speed = 0f;
                 _audioSource.Play();
 
@@ -339,7 +405,22 @@ public class Enemy : MonoBehaviour
                 {
                     _player.AddScore(10);
                 }
-                _anim.SetTrigger("OnEnemyDeath");
+                if (_enemyID == 2)
+                {
+                    _anim.SetTrigger("BlowUpEnemy");
+                }
+                else if (_enemyID == 4)
+                {
+                    _anim.SetTrigger("BlowUpEnemy");
+                }
+                else if (_enemyID == 5)
+                {
+                    _anim.SetTrigger("BlowUpEnemy");
+                }
+                else
+                {
+                    _anim.SetTrigger("OnEnemyDeath");
+                }
                 _speed = 0f;
                 _audioSource.Play();
 

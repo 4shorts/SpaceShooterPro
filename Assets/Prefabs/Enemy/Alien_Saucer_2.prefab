@@ -104,11 +104,16 @@ MonoBehaviour:
   _frequency: 0
   _enemyID: 5
   _enemyLaserPrefab: {fileID: 0}
-  _enemyMissilePrefab: {fileID: 0}
+  _enemyMissilePrefab: {fileID: 3487558738824312554, guid: 52e4f8aad77d1e8429345cd070e50b75,
+    type: 3}
   _explostionClip: {fileID: 8300000, guid: a885c043fab7e46438bba03ba9dab6bc, type: 3}
   target: {fileID: 0}
   _rb: {fileID: 0}
   _rotateSpeed: 200
+  _explosionPrefab: {fileID: 9105120758304589183, guid: 7797705ad701c4741bbbbc30f34ec89e,
+    type: 3}
+  LaserCastRadius: 0.5
+  LaserCastDistance: 8
 --- !u!50 &3106534025123202782
 Rigidbody2D:
   serializedVersion: 4
@@ -156,7 +161,7 @@ Animator:
   m_GameObject: {fileID: 3314055028080166647}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a131af139f4ee6c40bfb70cf850de9bc, type: 2}
+  m_Controller: {fileID: 9100000, guid: 232d4c831264fb94f8e30bd0888e677b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
