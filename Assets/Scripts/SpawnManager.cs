@@ -64,15 +64,15 @@ public class SpawnManager : MonoBehaviour
         {
             case 1:
                 StartCoroutine(_uiManager.WaveText(_currentWave));
-                StartCoroutine(SpawningEnemiesRoutine(1));
+                StartCoroutine(SpawningEnemiesRoutine(3));
                 break;
             case 2:
                 StartCoroutine(_uiManager.WaveText(_currentWave));
-                StartCoroutine(SpawningEnemiesRoutine(1));
+                StartCoroutine(SpawningEnemiesRoutine(5));
                 break;
             case 3:
                 StartCoroutine(_uiManager.WaveText(_currentWave));
-                StartCoroutine(SpawningEnemiesRoutine(1));
+                StartCoroutine(SpawningEnemiesRoutine(10));
                 break;
             case 4:
                 StartCoroutine(_uiManager.WaveText(_currentWave));

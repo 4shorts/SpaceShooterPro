@@ -11,8 +11,7 @@ public class BossWeapons : MonoBehaviour
     public Transform target;
     [SerializeField]
     private Rigidbody2D _rb;
-    [SerializeField]
-    private float _rotationSpeed = 200f;
+  
     [SerializeField]
     private bool _lasersON;
     [SerializeField]

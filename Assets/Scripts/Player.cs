@@ -34,8 +34,7 @@ public class Player : MonoBehaviour
     private AudioClip _noAmmo;
     [SerializeField]
     private int _maxAmmoCount = 50;
-    [SerializeField]
-    private int _noAmmoCount = 0;
+    
     [SerializeField]
     private int _mineCount = 0;
     

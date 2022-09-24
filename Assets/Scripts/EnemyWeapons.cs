@@ -9,8 +9,7 @@ public class EnemyWeapons : MonoBehaviour
     public Transform target;
     [SerializeField]
     private Rigidbody2D _rb;
-    [SerializeField]
-    private float _rotateSpeed = 200f;
+    
     [SerializeField]
     private bool _isMissile = false;
     [SerializeField]

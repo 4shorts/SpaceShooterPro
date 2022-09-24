@@ -41,8 +41,7 @@ public class Boss : MonoBehaviour
     
 
     public Transform target;
-    [SerializeField]
-    private float _rotateSpeed = 200f;
+   
     private float _dirX;
     private Rigidbody2D _rb;
 
